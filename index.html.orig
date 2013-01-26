@@ -3,7 +3,18 @@
 	<title>Alpha Cell</title>
 
 	<script type="text/javascript" src="lib/jquery.min.js"></script>
-	<script language='JavaScript1.3' type='text/javascript' src='lib/box2djs.0.2.0.jquery.min.js'></script>
+	<script type='text/javascript' src='lib/box2d.js'></script>
+	<script type='text/javascript' src='lib/box2d-simple.js'></script>
+<<<<<<< HEAD
+
+	<script type="text/javascript" src="js/worm.js"></script>
+=======
+	
+	<script type="text/javascript" src="js/level.js"></script>
+>>>>>>> 5425132837a92add1b64c94c11d2e7c59e68cc6b
+	<script type="text/javascript" src="js/game.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/setup.js"></script>
 	<style type="text/css">
 		body {
 
@@ -12,10 +23,9 @@
 	</style>
 </head>
 <body>
-	<center>
 	<canvas id="gamecanvas" width="800px" height="600px">
 		Canvas not supported.
 	</canvas>
-	</center>
+
 </body>
 </html>
