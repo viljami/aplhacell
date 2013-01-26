@@ -19,7 +19,7 @@ function Player( o ) {
 		recovery: 1000 // milliseconds
 	};
 	
-	this.states = { normal: 'normal', attack: 'attack' };
+	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled' };
 	this.state = this.states.normal;
 
 	this.imgs = {
@@ -86,13 +86,14 @@ Player.prototype.attack = function () {
 }
 
 Player.prototype.attackHandler = function () {
-	this.state = this.states.normal;
+	this.state = this.states.disabled;
 	
 	setTimeout( this.postAttackHandler, this.levels.recovery );
 }
 
 Player.prototype.postAttackHandler = function () {
 	this.attackReady = true;
+	this.state = this.states.normal;
 }
 
 Player.prototype.update = function () {
