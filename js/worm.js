@@ -102,4 +102,5 @@ Worm.prototype.remove = function () {
 	box2d.world.DestroyBody( this.bottom );
 	//box2d.world.DestroyJoint( this.djoint2 )
 	//box2d.world.DestroyJoint( this.rjoint2 );
+	score.wormsKilled++;
 }
