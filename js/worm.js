@@ -12,9 +12,9 @@ function Worm( o ) {
 	var distances = [ 8.5, 8.5-o.r, 8.5-(o.r*2) ];
 	var angle = o.a || Math.PI;
 	
-	var position1 = new b2Vec2( center.x + distances[ 0 ] * Math.cos( angle ), center.y + distances[ 0 ] * Math.sin( angle ));
-	var position2 = new b2Vec2( center.x + distances[ 1 ] * Math.cos( angle ), center.y + distances[ 1 ] * Math.sin( angle ));
-	var position3 = new b2Vec2( center.x + distances[ 2 ] * Math.cos( angle ), center.y + distances[ 2 ] * Math.sin( angle ));
+	var position1 = new b2Vec2( center.x + distances[ 0 ] * Math.sin( angle ), center.y + distances[ 0 ] * Math.cos( angle ));
+	var position2 = new b2Vec2( center.x + distances[ 1 ] * Math.sin( angle ), center.y + distances[ 1 ] * Math.cos( angle ));
+	var position3 = new b2Vec2( center.x + distances[ 2 ] * Math.sin( angle ), center.y + distances[ 2 ] * Math.cos( angle ));
 	
 	var bottom = box2d.create.circle({r: o.r, x: position1.x, y: position1.y, static: true }),
 		middle = box2d.create.circle({r: o.r * 0.8, x: position2.x, y: position2.y, density: 0.8, static: Math.random() < 0.5 }),
@@ -57,6 +57,9 @@ function Worm( o ) {
 		middle: $('#wormBody').get(0),
 		bottom: $('#wormBody').get(0)
 	}
+
+	this.eggInterval = 5 + 30 * Math.random();
+	this.eggTimeLeft = this.eggInterval;
 }
 
 Worm.prototype.imgs = {};
@@ -70,6 +73,14 @@ Worm.prototype.draw = function ( context ) {
 	var scale = s2;
 	context.scale(scale,scale);
 	context.drawImage(this.imgs.head,-37,-37);
+	//overlay
+	if (this.eggTimeLeft < 3 && game.gameTime % 0.5 > 0.2) {
+        context.fillStyle = "rgba(255, 0, 0, 0.4)";
+        context.beginPath();
+        context.arc(0, 0, 37, 0, (Math.PI * 2), true);
+        context.closePath();
+        context.fill();
+    }
 	context.restore();
 	
 	// Draw Middle
@@ -93,8 +104,18 @@ Worm.prototype.draw = function ( context ) {
 	context.restore();
 }
 
-Worm.prototype.update = function ( isPlayerAttacking ) {
-	
+Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
+	this.eggTimeLeft -= deltaTime;
+
+	if (this.eggTimeLeft <= 0) {
+		this.eggTimeLeft = this.eggInterval;
+
+
+		var pos = this.head.GetWorldCenter();
+		//launch egg
+		game.eggs.push(new Egg({x:pos.x, y:pos.y, r:0.3}));
+	}
+
 	if( this.head.beginContact != null ) {
 		var contact = this.head.beginContact;
 		if( !contact.GetFixtureA().GetBody().ground && !contact.GetFixtureB().GetBody().ground && isPlayerAttacking )  {

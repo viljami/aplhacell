@@ -43,9 +43,9 @@ Level.prototype.drawBackground = function () {
 	this.bufferCanvas.height = 1024;
 	var context = this.bufferCanvas.getContext('2d');
 	
-	var img = $( '#bg_sick_tile' ).get( 0 );
+	var img = $( '#wallTile' ).get( 0 );
 	var image = new Image();
-	image.src = 'img/bg_sick_tile.png';
+	image.src = 'img/walls_tile.png';
 	var onload = function () {
 		var pattern = context.createPattern( image, 'repeat');
 		context.fillStyle = pattern;
