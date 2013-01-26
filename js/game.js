@@ -1,5 +1,4 @@
-var game;
-var worm;
+var worm; //can be removed
 
 function Game() {	
 	this.width = $('canvas').css('width');
@@ -9,7 +8,7 @@ function Game() {
 	console.log( this.width, this.height, this.center, this.box2dCenter);
 	
 	box2d.init();
-	
+
 	worm = new Worm();
 
 	this.canvas = $( "#gamecanvas" ).get(0);
@@ -18,6 +17,21 @@ function Game() {
 	this.level = new Level( this );
 	
 	this.controls = new Controls();
+
+	this.worms = [];
+
+	for (var i = 0; i < 5; i++) {
+		var angle = Math.PI + Math.random()*Math.PI;
+		
+		var params = {
+			x: this.box2dCenter.x + this.level.r * Math.sin(angle),
+			y: this.box2dCenter.y + this.level.r * Math.cos(angle),
+			r: 0.5,
+			a: (Math.random() + 1)*Math.PI
+		};
+		var newWorm = new Worm(params);
+		this.worms.push(newWorm);
+	}
 
 	this.gameTime = 0;
 	this.worldAngle = -1;
@@ -72,6 +86,9 @@ Game.prototype.update = function() {
 }
 
 Game.prototype.draw = function() {
+	//this.context.fillStyle = "black";
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
 	this.context.save();
 	this.context.translate(this.canvas.width/2, this.canvas.height/2);
 
@@ -82,6 +99,8 @@ Game.prototype.draw = function() {
 	if(worm != null )worm.draw( box2d.context);
 
 	this.level.draw(this.context);
+	for (var i = 0; i < this.worms.length; i++)
+		this.worms[i].draw(box2d.context);
 	this.context.restore();
 }
 

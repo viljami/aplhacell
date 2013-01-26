@@ -50,11 +50,11 @@ Worm.prototype.draw = function ( context ) {
 	// Draw Head
 	context.save();
 	context.translate(this.head.GetPosition().x * box2d.scale, this.head.GetPosition().y * box2d.scale ); 
-	context.rotate(this.head.GetAngle());
+	context.rotate(this.head.GetAngle() + 1.5 + Math.sin(game.gameTime*0.3));
 	var s2 = 0.5;
 	var scale = s2;
 	context.scale(scale,scale);
-	context.drawImage(this.imgs.head,-25,-25);
+	context.drawImage(this.imgs.head,-37,-37);
 	context.restore();
 	
 	// Draw Middle

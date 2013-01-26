@@ -18,3 +18,5 @@ function mainLoop() {
 	game.run(delta_time);
 	_requestAnimFrame(mainLoop);
 }
+
+var game; //global access for everyone
