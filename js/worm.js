@@ -1,15 +1,27 @@
 function Worm( o ) {
 	if ( !o ) {
 		o = {};
-		o.x = 6;
-		o.y = 14.7;
+		if (o.x && o.y) {
+			o.a = Math.atan2(o.x, o.y);
+		}
 		o.r = 0.5;
 		o.a = 2 * Math.PI;
 		o.distance = 7;
 	}
+
+	var distances = [ 8.5, 8.5-o.r, 8.5-(o.r*2) ];
+
+	if (o && o.x && o.y) {
+		var center = game.box2dCenter.Copy();
+		center.Subtract(new b2Vec2(o.x, o.y));
+		var depth = center.Length();
+		if (depth < game.level.r/2) {
+			center.Multiply(-1);
+			distances = [ 2, 2+o.r, 2+(o.r*2) ];
+		}
+	}
 	
 	var center = game.box2dCenter;
-	var distances = [ 8.5, 8.5-o.r, 8.5-(o.r*2) ];
 	var angle = o.a || Math.PI;
 	
 	var position1 = new b2Vec2( center.x + distances[ 0 ] * Math.sin( angle ), center.y + distances[ 0 ] * Math.cos( angle ));

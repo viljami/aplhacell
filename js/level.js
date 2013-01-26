@@ -26,6 +26,21 @@ function Level(game) {
 		body.name = "ground";
 		this.bodies.push(body);
 	}
+
+	//Mid
+	for (var a = 0; a < 6; a ++) {
+		var angle = Math.random()*Math.PI*2;
+		var depth = 2 + (this.r-2) * Math.random();
+
+		var x = game.box2dCenter.x + Math.sin(angle)*depth;
+		var y = game.box2dCenter.y + Math.cos(angle)*depth;
+		var r = 0.7 + Math.random();
+		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
+		body.r = r;
+		body.ground = true;
+		body.name = "ground2";
+		this.bodies.push(body);
+	}
 }
 
 Level.prototype.draw = function(context) {
@@ -33,7 +48,7 @@ Level.prototype.draw = function(context) {
 		this.drawBackground();
 	} 
 	//this.drawBackground(context);
-	context.drawImage( this.bufferCanvas, 0, 0 );
+	context.drawImage( this.bufferCanvas, 0, -100 );
 }
 
 Level.prototype.bufferCanvas = null;
@@ -54,6 +69,7 @@ Level.prototype.drawBackground = function () {
 		context.shadowOffsetY = 0;
 		context.shadowBlur = 2;
 		context.shadowColor = "rgba(99, 55, 11, 0.3)";
+		context.translate(0, 100);
 		
 		for (var i = 0; i < this.bodies.length; i++) {
 			var body = this.bodies[i];
