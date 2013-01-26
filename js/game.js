@@ -20,6 +20,7 @@ function Game() {
 	this.controls = new Controls();
 
 	this.gameTime = 0;
+	this.worldAngle;
 }
 
 Game.prototype.run = function(deltaTime) {
