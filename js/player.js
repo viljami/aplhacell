@@ -8,7 +8,8 @@ function Player( o ) {
 	}
 	// TODO: Angle
 	this.body = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: false }),
-
+	this.body.name = 'player';
+	
 	this.imgs = {
 		body: $('#wormHead').get(0)
 	}
