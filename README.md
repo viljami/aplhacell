@@ -1,4 +1,4 @@
-aplhacell
+Aplha Cell
 =========
 
 Yes, you read right. It's been long weekend. This game is developed in a game development event, Finnish Game Jam 2013.

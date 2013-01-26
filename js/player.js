@@ -69,8 +69,7 @@ Player.prototype.gameOver = function () {
 }
 Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
-	var percentage = ( this.levels.hostHealthMax - ( n % this.levels.hostTolerance )) / this.levels.hostHealthMax;
-	console.log(percentage, this.levels.hostHealthMax, n,this.levels.hostTolerance, this.levels.hostHealthMax);
+	var percentage = ( this.levels.hostHealthMax - ( n / this.levels.hostTolerance )) / this.levels.hostHealthMax;
 	this.hostHealthbar.updatePercentage( percentage );
 }
 Player.prototype.updateLevels = function () {
