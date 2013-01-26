@@ -29,6 +29,8 @@ function Player( o ) {
 	
 	this.attackHandler = this.attackHandler.bind( this ); 
 	this.postAttackHandler = this.postAttackHandler.bind( this ); 
+	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
+	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
 }
 
 Player.prototype.imgs = {};
@@ -79,6 +81,47 @@ Player.prototype.attackHandler = function () {
 	
 	setTimeout( this.postAttackHandler, this.levels.recovery );
 }
+
 Player.prototype.postAttackHandler = function () {
 	this.attackReady = true;
+}
+
+Player.prototype.update = function () {
+	if( this.body.beginContact != null ) {
+		if( this.state != this.states.attack ) {
+			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
+				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {
+					if ( !this.recoveryMode ) {
+						this.recoveryMode = true;
+						this.bodyImage = $(document.body).css( 'background-image' );
+						$(document.body).css( {'background-image': 'url("img/bg_sick_tile.png")' });
+						this.levels.health--;
+						setTimeout( this.recoverFromDamage, 100 );
+					}
+			}
+		}
+	}
+	if( this.body.endContact ) {
+		this.body.beginContact = null;
+		this.body.endContact = false;
+	}
+}
+Player.prototype.recoveryMode = false;
+Player.prototype.recoverFromDamage = function () {
+	if( !this.recoveryMode ) {
+		return;
+	}
+	$(document.body).css( {'background-image': this.bodyImage });
+	
+	setTimeout( this.postRecoverFromDamage, 300 );
+}
+Player.prototype.postRecoverFromDamage = function () {
+	this.recoveryMode = false;
+}
+
+Player.prototype.getState = function () {
+	return this.state;
+}
+Player.prototype.isAttacking = function () {
+	return this.state == this.states.attack;
 }
