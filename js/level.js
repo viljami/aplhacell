@@ -1,11 +1,12 @@
 function Level(game) {
 
 	this.bodies = [];
-
+	this.r = 10;
+	
 	//Border
 	for (var a = 0; a < Math.PI*2; a += Math.PI/40) {
-		var x = 7 + Math.sin(a)*10;
-		var y = 7 + Math.cos(a)*10;
+		var x = 7 + Math.sin(a) * this.r;
+		var y = 7 + Math.cos(a) * this.r;
 		var r = 1 + Math.random();
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
