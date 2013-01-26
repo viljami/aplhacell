@@ -109,6 +109,9 @@ Game.prototype.draw = function() {
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
 		this.worms[i].draw(box2d.context);
+
+	this.player.draw(box2d.context);
+
 	this.context.restore();
 }
 

@@ -10,11 +10,6 @@ function Player( o ) {
 	this.body = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: false }),
 	this.body.name = 'player';
 	
-	this.imgs = {
-		body: $('#wormHead').get(0),
-		bodyAttack: $('#wormHead').get(0)
-	}
-	
 	this.levels = {
 		jump: 1,
 		attack: 1,
@@ -23,6 +18,11 @@ function Player( o ) {
 	
 	this.states = { normal: 'normal', attack: 'attack' };
 	this.state = this.states.normal;
+
+	this.imgs = {
+		"normal": $('#cell').get(0),
+		"attack": $('#cellspikes').get(0)
+	}
 }
 
 Player.prototype.imgs = {};
@@ -34,11 +34,8 @@ Player.prototype.draw = function ( context ) {
 	var s2 = 0.5;
 	var scale = s2;
 	context.scale( scale, scale );
-	if( this.state = this.states.normal ) { 
-		context.drawImage( this.imgs.body, -40, -40);
-	} else {
-		context.drawImage( this.imgs.bodyAttack, -40, -40);
-	}
+	var img = this.imgs[this.state];
+	context.drawImage(img, -img.width/2, -img.height/2);
 	context.restore();
 }
 
