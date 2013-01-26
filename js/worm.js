@@ -5,11 +5,25 @@ function Worm( o ) {
 		o.y = 14.7;
 		o.r = 0.5;
 		o.a = 2 * Math.PI;
+		o.distance = 7;
 	}
-	// TODO: Angle
+	console.log(game)
+	var center = game.box2dCenter;
+	var distances = [ 8.5, 8.5-o.r, 8.5-o.r*2 ];
+	var angle = o.a || Math.PI;
+	
+	var position1 = new b2Vec2( center.x + distances[ 0 ] * Math.cos( angle ), center.y + distances[ 0 ] * Math.sin( angle ));
+	var position2 = new b2Vec2( center.x + distances[ 1 ] * Math.cos( angle ), center.y + distances[ 1 ] * Math.sin( angle ));
+	var position3 = new b2Vec2( center.x + distances[ 2 ] * Math.cos( angle ), center.y + distances[ 2 ] * Math.sin( angle ));
+	
+	var bottom = box2d.create.circle({r: o.r, x: position1.x, y: position1.y, static: true }),
+		middle = box2d.create.circle({r: o.r * 0.8, x: position2.x, y: position2.y, density: 0.8 }),
+		head = box2d.create.circle({r: o.r * 0.6, x: position3.x, y: position3.y, density: 0.2 }),
+/*	
 	var bottom = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: true }),
 	    middle = box2d.create.circle({r: o.r * 0.8, x: o.x, y: o.y - o.r, density: 0.8 }),
 	    head = box2d.create.circle({r: o.r * 0.6, x: o.x, y: o.y - o.r * 2, density: 0.2 }),
+	    */
 	    djoint1 = box2d.create.distanceJoint({bodyA: bottom, bodyB: middle, centerA: bottom.GetPosition(), centerB: middle.GetPosition() }),
 	    djoint2 = box2d.create.distanceJoint({bodyA: middle, bodyB: head, centerA: middle.GetPosition(), centerB: head.GetPosition() }),
 	    rjoint1 = box2d.create.revoluteJoint({
