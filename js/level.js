@@ -29,20 +29,39 @@ function Level(game) {
 }
 
 Level.prototype.draw = function(context) {
+	if ( this.bufferCanvas == null ) {
+		this.drawBackground();
+	} 
+	//this.drawBackground(context);
+	context.drawImage( this.bufferCanvas, 0, 0 );
+}
 
-	/*
-	context.fillStyle = "red";
-	for (var i = 0; i < this.bodies.length; i++) {
-		var body = this.bodies[i];
-		var x = body.m_xf.position.x;
-		var y = body.m_xf.position.y;
-		context.fillRect(x-body.r, y-body.r, body.r*2, body.r*2);
-	}
-	*/
-
-	for (var i = 0; i < this.bodies.length; i++) {
-		var body = this.bodies[i];
-		//body.m_linearVelocity.x = 1;
-	}
-
+Level.prototype.bufferCanvas = null;
+Level.prototype.drawBackground = function () {
+	this.bufferCanvas = document.createElement('canvas');
+	this.bufferCanvas.width = 1024;
+	this.bufferCanvas.height = 1024;
+	var context = this.bufferCanvas.getContext('2d');
+	
+	var img = $( '#bg_sick_tile' ).get( 0 );
+	var image = new Image();
+	image.src = 'img/bg_sick_tile.png';
+	var onload = function () {
+		var pattern = context.createPattern( image, 'repeat');
+		context.fillStyle = pattern;
+		
+		context.shadowOffsetX = 0;
+		context.shadowOffsetY = 0;
+		context.shadowBlur = 2;
+		context.shadowColor = "rgba(99, 55, 11, 0.3)";
+		
+		for (var i = 0; i < this.bodies.length; i++) {
+			var body = this.bodies[i];
+			var pos = body.GetPosition();
+			
+			context.arc( pos.x * box2d.scale, pos.y * box2d.scale, body.r  * box2d.scale, 0, 2 * Math.PI, false );
+			context.fill();
+		}
+	};
+	image.onload = onload.bind(this);
 }

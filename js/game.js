@@ -147,7 +147,7 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.scale(scale, scale);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
-	box2d.world.DrawDebugData();
+
 
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
@@ -170,6 +170,8 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.font = "60px Arial";
 		this.context.fillText("Game over.", 200, 300);
 	}
+	
+		//box2d.world.DrawDebugData();
 }
 
 Game.prototype.gravity = function () {
