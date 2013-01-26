@@ -15,6 +15,8 @@ function Game() {
 	this.context = this.canvas.getContext( "2d" );
 	this.player = new Player();
 	this.level = new Level( this );
+
+	this.state = "start";
 	
 	this.controls = new Controls();
 
@@ -42,8 +44,10 @@ function Game() {
 
 Game.prototype.run = function(deltaTime) {
 	this.gameTime += deltaTime;
+
 	this.handleControls(); 
 	
+	if (this.state == "running")
 	this.update();
 	
 	//this.context.fillStyle = "red";
@@ -52,6 +56,18 @@ Game.prototype.run = function(deltaTime) {
 
 	this.gravity();
 
+	this.calculateWorldAngle(deltaTime);
+
+	this.particleEngine.addParticle();
+
+	if (this.state == "running" && this.worms.length == 0)
+		this.state = "end";
+
+	this.draw(deltaTime);
+	
+}
+
+Game.prototype.calculateWorldAngle = function(deltaTime) {
 	var vector = this.getUnityGravityVector(this.player.body.GetWorldCenter());
 	var targetAngle = Math.atan2(vector.x, vector.y);
 	if (this.worldAngle < 0)
@@ -71,11 +87,6 @@ Game.prototype.run = function(deltaTime) {
 
 		this.worldAngle = (this.worldAngle + Math.PI*2) % (Math.PI*2);
 	}
-
-	this.particleEngine.addParticle();
-
-	this.draw(deltaTime);
-	
 }
 
 Game.prototype.update = function() {
@@ -117,6 +128,15 @@ Game.prototype.draw = function(deltaTime) {
 	this.particleEngine.update(box2d.context, deltaTime);
 
 	this.context.restore();
+
+	if (this.state == "start") {
+		this.context.font = "60px Arial";
+		this.context.fillText("Welcome", 200, 300);
+	}
+	else if (this.state == "end") {
+		this.context.font = "60px Arial";
+		this.context.fillText("Game over.", 200, 300);
+	}
 }
 
 Game.prototype.gravity = function () {
@@ -134,7 +154,7 @@ Game.prototype.gravity = function () {
 		force.Normalize();
 		force.Multiply(10);
 
-		this.player.body.ApplyForce(force, this.player.body.GetWorldCenter());		
+		this.player.body.ApplyForce(force, this.player.body.GetWorldCenter());
 	}
 }
 
@@ -152,6 +172,9 @@ Game.prototype.handleControls = function () {
 		var force = this.getUnityGravityVector(pos);
 		force.Multiply(-15 -20 * Math.sin(this.gameTime*5));
 		this.player.body.ApplyForce(force, pos);
+
+		if (this.state == "start")
+			this.state = "running";
 	}
 	if( this.controls.keys.down.isDown ) {
 		
@@ -161,14 +184,23 @@ Game.prototype.handleControls = function () {
 		var force = this.getUnityGravityVector(pos);
 		force.CrossVF(-30);
 		this.player.body.ApplyForce(force, pos);
+
+		if (this.state == "start")
+			this.state = "running";
 	}
 	if( this.controls.keys.right.isDown ) {
 		var pos = this.player.body.GetWorldCenter();
 		var force = this.getUnityGravityVector(pos);
 		force.CrossVF(30);
 		this.player.body.ApplyForce(force, pos);
+
+		if (this.state == "start")
+			this.state = "running";
 	}
 	if( this.controls.keys.space.isDown ) {
 		this.player.attack();
+
+		if (this.state == "start")
+			this.state = "running";
 	}
 }
