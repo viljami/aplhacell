@@ -3,6 +3,8 @@ var game;
 function Game() {
 	this.canvas = $("#gamecanvas");
 	this.context = this.canvas.get(0).getContext("2d");
+	
+	new Worm();
 }
 
 Game.prototype.run = function(deltaTime) {
