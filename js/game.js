@@ -14,7 +14,7 @@ function Game() {
 
 	this.canvas = $( "#gamecanvas" ).get(0);
 	this.context = this.canvas.getContext( "2d" );
-	this.player = box2d.create.box({ w:1, h:1, x:6, y:6 });
+	this.player = box2d.create.box({ w:1, h:1, x:15, y:6 });
 	this.level = new Level( this );
 	
 	this.controls = new Controls();
@@ -35,11 +35,11 @@ Game.prototype.run = function(deltaTime) {
 	this.gravity();
 
 	this.level.draw(this.context);
-		
+	
 }
 
 Game.prototype.gravity = function () {
-	var pos = this.player.GetPosition();
+	var pos = this.player.GetWorldCenter();
 	var playerDistanceFromCenter = this.level.r + 10 - ( pos.x * pos.x + pos.y * pos.y );
 	
 	//console.log( playerDistanceFromCenter, this.level.r)
@@ -48,25 +48,25 @@ Game.prototype.gravity = function () {
 	if( playerDistanceFromCenter <= this.level.r - 2 ) {
 		console.log( playerDistanceFromCenter, this.level.r)
 		var center = this.box2dCenter;
-		var force = pos;
+		var force = pos.Copy();
 		force.Subtract(center);
 		force.Normalize();
-		force.Multiply(1);
+		force.Multiply(10);
 
-		this.player.ApplyForce(force, this.player.GetPosition());		
+		this.player.ApplyForce(force, this.player.GetWorldCenter());		
 	}		
 }
 
 Game.prototype.handleControls = function () {
 	if( this.controls.keys.up.isDown ) {
-		var pos = this.player.GetPosition();
+		var pos = this.player.GetWorldCenter();
 		var center = this.box2dCenter;
-		var force = pos;
+		var force = pos.Copy();
 		force.Subtract(center);
 		force.Normalize();
 		force.Multiply(-70);
 		
-		this.player.ApplyForce(force, this.player.GetPosition());		
+		this.player.ApplyForce(force, this.player.GetWorldCenter());		
 	}
 	if( this.controls.keys.down.isDown ) {
 		
