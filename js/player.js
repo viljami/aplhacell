@@ -24,7 +24,7 @@ function Player( o ) {
 		recovery: 1000 // milliseconds
 	};
 	
-	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled' };
+	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled', win: "win" };
 	this.state = this.states.normal;
 
 	this.imgs = {
@@ -32,7 +32,8 @@ function Player( o ) {
 		"normal2": $('#cell2').get(0),
 		"normal3": $('#cell3').get(0),
 		"attack": $('#cellspikes').get(0),
-		"disabled": $('#celldisabled').get(0)
+		"disabled": $('#celldisabled').get(0),
+		"win": $('#cellwin').get(0)
 	}
 	
 	this.attackHandler = this.attackHandler.bind( this ); 
@@ -47,6 +48,9 @@ function Player( o ) {
 Player.prototype.imgs = {};
 
 Player.prototype.draw = function ( context ) {
+	if (game.state == "win")
+		this.state = this.states.win;
+
 	context.save();
 	context.translate( this.body.GetPosition().x * box2d.scale, this.body.GetPosition().y * box2d.scale ); 
 	context.rotate( this.body.GetAngle() );
@@ -119,6 +123,7 @@ Player.prototype.postAttackHandler = function () {
 }
 
 Player.prototype.update = function (deltaTime) {
+
 	if( this.body.beginContact != null ) {
 		var name1 = this.body.beginContact.GetFixtureA().GetBody().name;
 		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
