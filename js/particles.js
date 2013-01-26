@@ -129,7 +129,7 @@ var ParticleSystem = new function()
     		if (o.color == "random")
     			particle.color = randomColor();
     		else if (o.color == "ground") {
-    			var colorB = 150 + Math.random()*100;
+    			var colorB = 100 + Math.random()*150;
     			particle.color = "rgb(255, "+Math.floor(colorB)+", "+Math.floor(colorB)+")";
     		}
     		else if (o.color == "worm")
