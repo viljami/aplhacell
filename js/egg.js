@@ -6,23 +6,23 @@ function Egg(o) {
 		o.y = 10;
 		o.r = 0.3;
 
-		var center = game.box2dCenter.Copy();
-		center.Subtract(new b2Vec2(o.x, o.y));
-		var depth = center.Length();
-		if (depth < game.level.r/2) {
-			center.Multiply(-1);
-		}
-		center.Normalize();
-		center.Multiply(1);
-
-		o.xs = center.x + Math.random();
-		o.ys = center.y + Math.random();
+		//o.xs = center.x + Math.random();
+		//o.ys = center.y + Math.random();
 	}
+
+	var center = game.box2dCenter.Copy();
+	center.Subtract(new b2Vec2(o.x, o.y));
+	var depth = center.Length();
+	if (depth < game.level.r/2) {
+		center.Multiply(-1);
+	}
+	center.Normalize();
+	center.Multiply(1);
 
 	this.body = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: false });
 	this.body.name = "egg";
 
-	this.body.ApplyImpulse(new b2Vec2(o.xs, o.xy), this.body.GetWorldCenter());
+	this.body.ApplyImpulse(new b2Vec2(center.x + Math.random(), center.y + Math.random()), this.body.GetWorldCenter());
 
 	this.image = $('#egg').get(0);
 

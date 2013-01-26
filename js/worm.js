@@ -57,6 +57,9 @@ function Worm( o ) {
 		middle: $('#wormBody').get(0),
 		bottom: $('#wormBody').get(0)
 	}
+
+	this.eggInterval = 5 + 30 * Math.random();
+	this.eggTimeLeft = this.eggInterval;
 }
 
 Worm.prototype.imgs = {};
@@ -70,6 +73,14 @@ Worm.prototype.draw = function ( context ) {
 	var scale = s2;
 	context.scale(scale,scale);
 	context.drawImage(this.imgs.head,-37,-37);
+	//overlay
+	if (this.eggTimeLeft < 3 && game.gameTime % 0.5 > 0.2) {
+        context.fillStyle = "rgba(255, 0, 0, 0.4)";
+        context.beginPath();
+        context.arc(0, 0, 37, 0, (Math.PI * 2), true);
+        context.closePath();
+        context.fill();
+    }
 	context.restore();
 	
 	// Draw Middle
@@ -93,8 +104,18 @@ Worm.prototype.draw = function ( context ) {
 	context.restore();
 }
 
-Worm.prototype.update = function ( isPlayerAttacking ) {
-	
+Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
+	this.eggTimeLeft -= deltaTime;
+
+	if (this.eggTimeLeft <= 0) {
+		this.eggTimeLeft = this.eggInterval;
+
+
+		var pos = this.head.GetWorldCenter();
+		//launch egg
+		game.eggs.push(new Egg({x:pos.x, y:pos.y, r:0.3}));
+	}
+
 	if( this.head.beginContact != null ) {
 		var contact = this.head.beginContact;
 		if( !contact.GetFixtureA().GetBody().ground && !contact.GetFixtureB().GetBody().ground && isPlayerAttacking )  {
