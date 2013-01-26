@@ -20,7 +20,7 @@ function Game() {
 	this.controls = new Controls();
 
 	this.gameTime = 0;
-	this.worldAngle;
+	this.worldAngle = -1;
 }
 
 Game.prototype.run = function(deltaTime) {
@@ -33,6 +33,26 @@ Game.prototype.run = function(deltaTime) {
 
 	this.gravity();
 
+	var vector = this.getUnityGravityVector(this.player.GetWorldCenter());
+	var targetAngle = Math.atan2(vector.x, vector.y);
+	if (this.worldAngle < 0)
+		this.worldAngle = targetAngle;
+	else {
+
+		if (Math.abs(this.worldAngle - targetAngle) > Math.PI) {
+			if (this.worldAngle < targetAngle) {
+				targetAngle -= Math.PI*2;
+			}
+			else
+				targetAngle += Math.PI*2;
+		}
+		var difference = Math.abs(this.worldAngle - targetAngle);
+		if (difference > 0)
+			this.worldAngle += (targetAngle - this.worldAngle)*Math.pow(deltaTime, 0.8);
+
+		this.worldAngle = (this.worldAngle + Math.PI*2) % (Math.PI*2);
+	}
+
 	this.draw();
 	
 }
@@ -40,11 +60,8 @@ Game.prototype.run = function(deltaTime) {
 Game.prototype.draw = function() {
 	this.context.save();
 	this.context.translate(this.canvas.width/2, this.canvas.height/2);
-	
-	var vector = this.getUnityGravityVector(this.player.GetWorldCenter());
-	var angle = Math.atan2(vector.x, vector.y);
 
-	this.context.rotate(angle);
+	this.context.rotate(this.worldAngle);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
 	box2d.world.DrawDebugData();
