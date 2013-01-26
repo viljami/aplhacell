@@ -1,10 +1,10 @@
 var game;
-
+var worm;
 function Game() {
 	box2d.init();
 	this.player = box2d.create.box({w:1, h:1, x:2, y:3, static:false});
 	
-	new Worm();
+	worm = new Worm();
 
 	this.canvas = $("#gamecanvas").get(0);
 	this.context = this.canvas.getContext("2d");
@@ -18,7 +18,7 @@ Game.prototype.run = function(deltaTime) {
 	box2d.world.ClearForces();
 
 	box2d.world.DrawDebugData();
-
+worm.draw( box2d.context);
 	this.level.draw(this.context);
 
 /*
