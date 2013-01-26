@@ -24,8 +24,8 @@ function Game() {
 		var angle = Math.PI + Math.random()*Math.PI;
 		
 		var params = {
-			x: this.box2dCenter.x + this.level.r * Math.sin(angle),
-			y: this.box2dCenter.y + this.level.r * Math.cos(angle),
+			x: this.box2dCenter.x + (this.level.r-1) * Math.sin(angle),
+			y: this.box2dCenter.y + (this.level.r-1) * Math.cos(angle),
 			r: 0.5,
 			a: (Math.random() + 1)*Math.PI
 		};
@@ -77,6 +77,14 @@ Game.prototype.update = function() {
 	if( worm ) {
 		worm.update();
 	}
+	for (var i = this.worms.length - 1; i >= 0; i--) {
+		this.worms[i].update();
+		if (this.worms[i].removeMe) {
+			this.worms[i].remove();
+			this.worms.splice(i, 1);
+		}
+	}
+
 	if( !worm || !worm.removeMe ) {
 		
 	} else {
