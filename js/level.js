@@ -1,7 +1,7 @@
 function Level(game) {
 
 	this.bodies = [];
-	this.r = 10;
+	this.r = 10.0;
 	
 	//Border
 	for (var a = 0; a < Math.PI*2; a += Math.PI/40) {
