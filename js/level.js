@@ -1,5 +1,5 @@
 function Level(game) {
-console.log( game );
+
 	this.bodies = [];
 	this.r = 10;
 	
@@ -10,6 +10,7 @@ console.log( game );
 		var r = 1 + Math.random();
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
+		body.ground = true;
 		this.bodies.push(body);
 	}
 
@@ -20,6 +21,7 @@ console.log( game );
 		var r = 0.5 + Math.random();
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
+		body.ground = true;
 		this.bodies.push(body);
 	}
 }

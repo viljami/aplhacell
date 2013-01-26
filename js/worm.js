@@ -76,3 +76,11 @@ Worm.prototype.draw = function ( context ) {
 	context.drawImage(this.imgs.bottom,-35,-35);
 	context.restore();
 }
+
+Worm.prototype.update = function () {
+	if( this.head.endContact ) {
+		this.head.beginContact = null;
+		this.head.endContact = false;
+	}
+	
+}

@@ -27,6 +27,8 @@ Game.prototype.run = function(deltaTime) {
 	this.gameTime += deltaTime;
 	this.handleControls(); 
 	
+	this.update();
+	
 	//this.context.fillStyle = "red";
 	box2d.world.Step( deltaTime, 3);
 	box2d.world.ClearForces();
@@ -57,6 +59,10 @@ Game.prototype.run = function(deltaTime) {
 	
 }
 
+Game.prototype.update = function() {
+	worm.update();
+}
+
 Game.prototype.draw = function() {
 	this.context.save();
 	this.context.translate(this.canvas.width/2, this.canvas.height/2);
@@ -79,7 +85,7 @@ Game.prototype.gravity = function () {
 	
 	// Check that will the peaces be pushed through the level ground
 	if( playerDistanceFromCenter <= this.level.r - 2 ) {
-		console.log( playerDistanceFromCenter, this.level.r)
+		
 		var center = this.box2dCenter;
 		var force = pos.Copy();
 		force.Subtract(center);
@@ -87,7 +93,7 @@ Game.prototype.gravity = function () {
 		force.Multiply(10);
 
 		this.player.body.ApplyForce(force, this.player.body.GetWorldCenter());		
-	}		
+	}
 }
 
 Game.prototype.getUnityGravityVector = function (pos) {
