@@ -106,7 +106,7 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.scale(scale, scale);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
-	box2d.world.DrawDebugData();
+//	box2d.world.DrawDebugData();
 
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
