@@ -97,11 +97,24 @@ Worm.prototype.draw = function ( context ) {
 Worm.prototype.update = function ( isPlayerAttacking ) {
 	
 	if( this.head.beginContact != null ) {
-		if( isPlayerAttacking ) {
+		var contact = this.head.beginContact;
+		if( !contact.GetFixtureA().GetBody().ground && !contact.GetFixtureB().GetBody().ground && isPlayerAttacking )  {
 			if( (this.head.beginContact.GetFixtureA().GetBody().name && this.head.beginContact.GetFixtureA().GetBody().name == 'player' ) ||
 				(this.head.beginContact.GetFixtureB().GetBody().name && this.head.beginContact.GetFixtureB().GetBody().name == 'player' )) {
 					console.log('contact -----------------');
 					this.removeMe = true;
+					var headPos = this.head.GetPosition();
+					var midPos = this.middle.GetPosition();
+					var bottomPos = this.bottom.GetPosition();
+					headPos.Multiply(box2d.scale);
+					midPos.Multiply(box2d.scale);
+					bottomPos.Multiply(box2d.scale);
+					for (var i = 0; i < 10; i++)
+						game.particleEngine.addParticle({x:headPos.x, y:headPos.y, color:"worm"});
+					for (var i = 0; i < 10; i++)
+						game.particleEngine.addParticle({x:midPos.x, y:midPos.y, color:"worm"});
+					for (var i = 0; i < 10; i++)
+						game.particleEngine.addParticle({x:bottomPos.x, y:bottomPos.y, color:"worm"});
 			}
 		}
 	}

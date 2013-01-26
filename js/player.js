@@ -88,6 +88,17 @@ Player.prototype.postAttackHandler = function () {
 
 Player.prototype.update = function () {
 	if( this.body.beginContact != null ) {
+		var name1 = this.body.beginContact.GetFixtureA().GetBody().name;
+		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
+		if ((name1 && name1 == "ground" || name2 && name2 == "ground") && this.body.m_linearVelocity.Length() > 3) {
+			//game.particleEngine.addParticle({x:});
+			var manifold = new b2WorldManifold();
+			this.body.beginContact.GetWorldManifold(manifold);
+			var collisionPoint = manifold.m_points[0];
+			collisionPoint.Multiply(box2d.scale);
+
+			game.particleEngine.addParticle({x: collisionPoint.x, y: collisionPoint.y, color:"ground"});
+		}
 		if( this.state != this.states.attack ) {
 			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
 				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {

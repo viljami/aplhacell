@@ -128,10 +128,13 @@ var ParticleSystem = new function()
     		}
     		if (o.color == "random")
     			particle.color = randomColor();
-    		else if (o.color == "gray")
-    			particle.color = "#bbbbbb";
-    		else
-    			particle.color = "white";
+    		else if (o.color == "ground") {
+    			var colorB = 150 + Math.random()*100;
+    			particle.color = "rgb(255, "+Math.floor(colorB)+", "+Math.floor(colorB)+")";
+    		}
+    		else if (o.color == "worm")
+    			particle.color = "rgb("+Math.floor(Math.random()*150)+", 50, 0)";
+    		else particle.color = "red";
     	}
 
     	particles.push(particle);
@@ -160,8 +163,8 @@ var ParticleSystem = new function()
                     continue;
                 }
 
-                particle.scaleX += deltaTime*1;
-                particle.scaleY += deltaTime*1;
+                particle.scaleX += deltaTime*3;
+                particle.scaleY += deltaTime*3;
                 particle.alpha -= deltaTime;
                 if (particle.alpha < 0) particle.alpha = 0;
                 particle.friction = friction;

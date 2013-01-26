@@ -11,6 +11,7 @@ function Level(game) {
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
 		body.ground = true;
+		body.name = "ground";
 		this.bodies.push(body);
 	}
 
@@ -22,6 +23,7 @@ function Level(game) {
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
 		body.ground = true;
+		body.name = "ground";
 		this.bodies.push(body);
 	}
 }
