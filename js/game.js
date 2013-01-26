@@ -33,6 +33,9 @@ function Game() {
 
 	this.gameTime = 0;
 	this.worldAngle = -1;
+
+	ParticleSystem.init(this.canvas);
+	this.particleEngine = ParticleSystem;
 }
 
 Game.prototype.run = function(deltaTime) {
@@ -67,7 +70,9 @@ Game.prototype.run = function(deltaTime) {
 		this.worldAngle = (this.worldAngle + Math.PI*2) % (Math.PI*2);
 	}
 
-	this.draw();
+	this.particleEngine.addParticle();
+
+	this.draw(deltaTime);
 	
 }
 
@@ -86,7 +91,7 @@ Game.prototype.update = function() {
 
 }
 
-Game.prototype.draw = function() {
+Game.prototype.draw = function(deltaTime) {
 	var scale = 2;
 
 	//this.context.fillStyle = "black";
@@ -106,6 +111,8 @@ Game.prototype.draw = function() {
 		this.worms[i].draw(box2d.context);
 
 	this.player.draw(box2d.context);
+
+	this.particleEngine.update(box2d.context, deltaTime);
 
 	this.context.restore();
 }
