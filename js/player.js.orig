@@ -24,7 +24,7 @@ function Player( o ) {
 		recovery: 1000 // milliseconds
 	};
 	
-	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled' };
+	this.states = { normal: 'normal', attack: 'attack' };
 	this.state = this.states.normal;
 
 	this.imgs = {
@@ -39,9 +39,13 @@ function Player( o ) {
 	this.postAttackHandler = this.postAttackHandler.bind( this ); 
 	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
 	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
+<<<<<<< HEAD
 	
 	this.healthbar = new Healthbar();
 	this.hostHealthbar = new Healthbar({w: 200, h: 30, x: 10, y: 50, p: 1});
+=======
+
+>>>>>>> be557fe05d21d326cb703e8397f4d654c8de117f
 }
 
 Player.prototype.imgs = {};
@@ -107,14 +111,13 @@ Player.prototype.attack = function () {
 }
 
 Player.prototype.attackHandler = function () {
-	this.state = this.states.disabled;
+	this.state = this.states.normal;
 	
 	setTimeout( this.postAttackHandler, this.levels.recovery );
 }
 
 Player.prototype.postAttackHandler = function () {
 	this.attackReady = true;
-	this.state = this.states.normal;
 }
 
 Player.prototype.update = function () {
