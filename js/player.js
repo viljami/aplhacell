@@ -15,6 +15,7 @@ function Player( o ) {
 		jump: 1,
 		attack: 1,
 		speed: 1,
+		maxHealth: 10,
 		health: 10,
 		recovery: 1000 // milliseconds
 	};
@@ -31,6 +32,8 @@ function Player( o ) {
 	this.postAttackHandler = this.postAttackHandler.bind( this ); 
 	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
 	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
+	
+	this.healtbar = new Healthbar();
 }
 
 Player.prototype.imgs = {};
@@ -48,6 +51,8 @@ Player.prototype.draw = function ( context ) {
 }
 
 Player.prototype.update = function () {
+	this.healthbar.updatePercentage( this.levels.health / this.levels.maxHealth );
+	
 	if ( score.wormsKilled > 2 ) {
 		// attack level up
 	} else if ( score.wormsKilled > 7 ) {
