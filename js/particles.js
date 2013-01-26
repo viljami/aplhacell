@@ -14,6 +14,7 @@ var Particle = function(color)
     this.scaleY = 1;
     this.alpha = 1;
     this.color = (color) ? color : 'black';
+    this.life = 1;
 
     Particle.prototype.update = function(context)
     {
@@ -21,22 +22,33 @@ var Particle = function(color)
         this.vy *= this.friction;
         
         this.vy += this.gravity;
+
+        if (this.image) {
+        	//bubble
+        	this.vx += Math.cos(this.life*7)*0.04;
+        	this.vy += Math.cos(this.life*11)*0.04;
+        }
         
         this.x += this.vx;
         this.y += this.vy;
 
-        this.rotation = Math.atan2(this.vy, this.vx);
+        //this.rotation = Math.atan2(this.vy, this.vx);
 
         context.save();
         context.translate(this.x, this.y);
         context.rotate(this.rotation);
         context.scale(this.scaleX, this.scaleY);
         context.globalAlpha = this.alpha;
-        context.fillStyle = this.color;
-        context.beginPath();
-        context.arc(0, 0, 2, 0, (Math.PI * 2), true);
-        context.closePath();
-        context.fill();
+        if (this.image) {
+        	context.drawImage(this.image, -this.image.width/2, -this.image.height/2);
+        }
+        else {
+	        context.fillStyle = this.color;
+	        context.beginPath();
+	        context.arc(0, 0, 2, 0, (Math.PI * 2), true);
+	        context.closePath();
+	        context.fill();
+    	}
         context.restore();
     };
 };
@@ -134,6 +146,26 @@ var ParticleSystem = new function()
     		}
     		else if (o.color == "worm")
     			particle.color = "rgb("+Math.floor(Math.random()*150)+", 50, 0)";
+    		else if (o.color == "bubble") {
+    			particle.image = $( '#bubble' ).get( 0 );
+    			particle.life = 4;
+    			particle.scaleX = 0.1;
+    			particle.scaleY = 0.1;
+
+    			var center = game.box2dCenter.Copy();
+    			center.Multiply(box2d.scale);
+    			var p = new b2Vec2(particle.x, particle.y);
+    			center.Subtract(p);
+    			center.Normalize();
+    			center.Multiply(0.6);
+
+    			particle.vx = center.x;
+    			particle.vy = center.y;
+
+    			particle.alpha = 0.4;
+
+    			particle.rotation = Math.PI*2*Math.random();
+    		}
     		else particle.color = "red";
     	}
 
@@ -163,9 +195,17 @@ var ParticleSystem = new function()
                     continue;
                 }
 
-                particle.scaleX += deltaTime*3;
-                particle.scaleY += deltaTime*3;
-                particle.alpha -= deltaTime;
+                if (particle.image) {
+                	//bubble
+                	particle.scaleX += deltaTime*0.02;
+                	particle.scaleY += deltaTime*0.02;
+                	particle.alpha -= deltaTime*0.1;
+                }
+                else {
+                	particle.scaleX += deltaTime*3;
+                	particle.scaleY += deltaTime*3;
+                	particle.alpha -= deltaTime;
+                }
                 if (particle.alpha < 0) particle.alpha = 0;
                 particle.friction = friction;
                 particle.gravity = gravity;
