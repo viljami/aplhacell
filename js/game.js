@@ -21,6 +21,9 @@ function Game() {
 	this.controls = new Controls();
 
 	this.worms = [];
+	this.eggs = [];
+
+	this.eggs.push(new Egg());
 
 	for (var i = 0; i < 5; i++) {
 		var angle = Math.PI + Math.random()*Math.PI;
@@ -48,7 +51,7 @@ Game.prototype.run = function(deltaTime) {
 	this.handleControls(); 
 	
 	if (this.state == "running")
-	this.update();
+	this.update(deltaTime);
 	
 	//this.context.fillStyle = "red";
 	box2d.world.Step( deltaTime, 3);
@@ -89,7 +92,7 @@ Game.prototype.calculateWorldAngle = function(deltaTime) {
 	}
 }
 
-Game.prototype.update = function() {
+Game.prototype.update = function(deltaTime) {
 	if( this.player ) {
 		this.player.update();
 	}
@@ -102,6 +105,33 @@ Game.prototype.update = function() {
 		}
 	}
 
+	for (var i = this.eggs.length - 1; i >= 0; i--) {
+		this.eggs[i].update( deltaTime);
+		if (this.eggs[i].removeMe) {
+
+			var x = this.eggs[i].body.GetWorldCenter().x;
+			var y = this.eggs[i].body.GetWorldCenter().y;
+
+			var center = this.box2dCenter.Copy();
+			var pos = new b2Vec2(x, y);
+			pos.Subtract(center);
+			pos.Multiply(1);
+
+			var angle = Math.atan2(pos.x, pos.y);
+		
+			var params = {
+				x: x,
+				y: y,
+				r: 0.5,
+				a: angle
+			};
+			var newWorm = new Worm(params);
+			this.worms.push(newWorm);
+
+			this.eggs[i].remove();
+			this.eggs.splice(i, 1);
+		}
+	}
 }
 
 Game.prototype.draw = function(deltaTime) {
@@ -122,6 +152,9 @@ Game.prototype.draw = function(deltaTime) {
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
 		this.worms[i].draw(box2d.context);
+
+	for (var i = 0; i < this.eggs.length; i++)
+		this.eggs[i].draw(box2d.context);
 
 	this.player.draw(box2d.context);
 
