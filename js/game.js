@@ -4,7 +4,6 @@ function Game() {
 	box2d.init();
 	
 	new Worm();
-	box2d.create.box({w:10, h:1, x:10, y:10, static:true});
 
 	this.level = new Level();
 }
