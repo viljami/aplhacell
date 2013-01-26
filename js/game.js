@@ -48,8 +48,9 @@ Game.prototype.run = function(deltaTime) {
 
 	this.handleControls(); 
 	
-	if (this.state == "running")
-	this.update(deltaTime);
+	if ( this.state == "running" ) {
+		this.update( deltaTime );
+	}
 	
 	//this.context.fillStyle = "red";
 	box2d.world.Step( deltaTime, 3);
@@ -91,7 +92,10 @@ Game.prototype.calculateWorldAngle = function(deltaTime) {
 }
 
 Game.prototype.update = function(deltaTime) {
+	
+		
 	if( this.player ) {
+		this.player.setAmountOfWorms( this.worms.length );
 		this.player.update();
 	}
 	
