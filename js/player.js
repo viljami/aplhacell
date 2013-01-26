@@ -72,6 +72,8 @@ Player.prototype.gameOver = function () {
 	console.log('gameOver');
 	game.state = "dead";
 	this.state = "disabled";
+
+	game.lose();
 }
 Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
@@ -124,11 +126,10 @@ Player.prototype.postAttackHandler = function () {
 
 Player.prototype.update = function (deltaTime) {
 
-	if( this.body.beginContact != null ) {
+	if( this.body.beginContact != null && (this.body.beginContact.GetFixtureA().GetBody() == this.body || this.body == this.body.beginContact.GetFixtureB().GetBody())) {
 		var name1 = this.body.beginContact.GetFixtureA().GetBody().name;
 		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
-		if ((name1 && name1 == "ground" || name2 && name2 == "ground") && this.body.m_linearVelocity.Length() > 3
-			&& (this.body.beginContact.GetFixtureA().GetBody() == this.body || this.body == this.body.beginContact.GetFixtureB().GetBody())) {
+		if ((name1 && name1 == "ground" || name2 && name2 == "ground") && this.body.m_linearVelocity.Length() > 3) {
 			//game.particleEngine.addParticle({x:});
 			var manifold = new b2WorldManifold();
 			this.body.beginContact.GetWorldManifold(manifold);
@@ -141,6 +142,8 @@ Player.prototype.update = function (deltaTime) {
 			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
 				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {
 					if ( !this.recoveryMode ) {
+						console.log("aih", this.body.beginContact);
+						$("#aih").get(0).play();
 						this.recoveryMode = true;
 						this.bodyImage = $(document.body).css( 'background-image' );
 						$(document.body).css( {'background-image': 'url("img/bg_sick_tile.png")' });
@@ -164,7 +167,7 @@ Player.prototype.update = function (deltaTime) {
 }
 Player.prototype.recoveryMode = false;
 Player.prototype.recoverFromDamage = function () {
-	if( !this.recoveryMode ) {
+	if( !this.recoveryMode || game.state == "dead" ) {
 		return;
 	}
 	$(document.body).css( {'background-image': this.bodyImage });

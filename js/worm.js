@@ -131,9 +131,14 @@ Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
 		this.eggInterval += 10;
 
 
-		var pos = this.head.GetWorldCenter();
+		var pos = this.head.GetWorldCenter().Copy();
+
 		//launch egg
 		game.eggs.push(new Egg({x:pos.x, y:pos.y, r:0.3}));
+
+		pos.Subtract(game.player.body.m_xf.position);
+		if (pos.Length() < 5)
+			$("#egglaunch").get(0).play();
 	}
 
 	if( this.head.beginContact != null ) {

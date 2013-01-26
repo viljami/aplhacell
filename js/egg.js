@@ -67,6 +67,10 @@ Egg.prototype.update = function(deltaTime) {
 
 	if (this.life < deltaTime && this.stuck) {
 		this.removeMe = true;
+		var pos = this.body.m_xf.position.Copy();
+		pos.Subtract(game.player.body.m_xf.position);
+		if (pos.Length() < 5)
+			$("#worm").get(0).play();
 	}
 }
 

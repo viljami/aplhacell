@@ -60,8 +60,10 @@ Game.prototype.run = function(deltaTime) {
 
 	this.calculateWorldAngle(deltaTime);
 
-	if (this.state == "running" && this.worms.length == 0)
+	if (this.state == "running" && this.worms.length == 0) {
+		$("#winsong").get(0).play();
 		this.state = "win";
+	}
 
 	this.draw(deltaTime);
 	
@@ -102,6 +104,8 @@ Game.prototype.update = function(deltaTime) {
 		if (this.worms[i].removeMe) {
 			this.worms[i].remove();
 			this.worms.splice(i, 1);
+
+			$("#squeeze").get(0).play();
 		}
 	}
 
@@ -260,4 +264,9 @@ Game.prototype.handleControls = function () {
 		if (this.state == "start")
 			this.state = "running";
 	}
+}
+
+Game.prototype.lose = function() {
+	$(document.body).css( {'background-image': 'url("img/bg_dead_tile.png")' });
+	$("#deadsong").get(0).play();
 }
