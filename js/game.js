@@ -30,14 +30,26 @@ Game.prototype.run = function(deltaTime) {
 	box2d.world.Step( deltaTime, 3);
 	box2d.world.ClearForces();
 
-	box2d.world.DrawDebugData();
-
-	worm.draw( box2d.context);
-	
 	this.gravity();
 
-	this.level.draw(this.context);
+	this.draw();
 	
+}
+
+Game.prototype.draw = function() {
+	this.context.save();
+	this.context.translate(this.canvas.width/2, this.canvas.height/2);
+	
+	//this.getUnityGravityVector()
+
+	this.context.rotate(this.gameTime/20);
+	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
+
+	box2d.world.DrawDebugData();
+	worm.draw( box2d.context);
+
+	this.level.draw(this.context);
+	this.context.restore();
 }
 
 Game.prototype.gravity = function () {
