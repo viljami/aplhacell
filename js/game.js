@@ -163,8 +163,15 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.restore();
 
 	if (this.state == "start") {
+		var scale = 0.7;
+		var img = $('#startpicture').get(0);
+		this.context.save();
+		this.context.scale(scale, scale);
+		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
+		this.context.restore();
+/*
 		this.context.font = "60px Arial";
-		this.context.fillText("Welcome", 200, 300);
+		this.context.fillText("Welcome", 200, 300);*/
 	}
 	else if (this.state == "end") {
 		this.context.font = "60px Arial";
