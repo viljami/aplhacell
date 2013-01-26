@@ -7,7 +7,7 @@ function Worm( o ) {
 		o.a = 2 * Math.PI;
 		o.distance = 7;
 	}
-	console.log(game)
+	
 	var center = game.box2dCenter;
 	var distances = [ 8.5, 8.5-o.r, 8.5-o.r*2 ];
 	var angle = o.a || Math.PI;
@@ -62,7 +62,6 @@ function Worm( o ) {
 Worm.prototype.imgs = {};
 
 Worm.prototype.draw = function ( context ) {
-	//console.log( this.head.GetPosition().x * box2d.scale, this.head.GetPosition().y * box2d.scale );
 	// Draw Head
 	context.save();
 	context.translate(this.head.GetPosition().x * box2d.scale, this.head.GetPosition().y * box2d.scale ); 
@@ -101,7 +100,6 @@ Worm.prototype.update = function ( isPlayerAttacking ) {
 		if( !contact.GetFixtureA().GetBody().ground && !contact.GetFixtureB().GetBody().ground && isPlayerAttacking )  {
 			if( (this.head.beginContact.GetFixtureA().GetBody().name && this.head.beginContact.GetFixtureA().GetBody().name == 'player' ) ||
 				(this.head.beginContact.GetFixtureB().GetBody().name && this.head.beginContact.GetFixtureB().GetBody().name == 'player' )) {
-					console.log('contact -----------------');
 					this.removeMe = true;
 					var headPos = this.head.GetPosition();
 					var midPos = this.middle.GetPosition();
@@ -121,13 +119,11 @@ Worm.prototype.update = function ( isPlayerAttacking ) {
 	if( this.head.endContact ) {
 		this.head.beginContact = null;
 		this.head.endContact = false;
-		console.log('contact');
 	}
 	
 }
 
 Worm.prototype.remove = function () {
-	console.log( box2d.world );
 	box2d.world.DestroyBody( this.head );
 	box2d.world.DestroyBody( this.middle );
 	box2d.world.DestroyBody( this.bottom );
