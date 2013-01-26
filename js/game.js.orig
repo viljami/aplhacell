@@ -1,11 +1,43 @@
 var game;
 
 function Game() {
-	box2d.init();
+<<<<<<< HEAD
+	this.canvas = $("#gamecanvas");
+	this.context = this.canvas.get(0).getContext("2d");
 	
 	new Worm();
-	box2d.create.box({w:10, h:1, x:10, y:10, static:true});
+=======
+	box2d.init();
+	box2d.create.box({w:1, h:1, x:3, y:3, static:false});
 
+
+
+	//create world
+
+    box2d._boxFixDef.shape.SetAsBox( o.w, o.h );
+    box2d._bodyDef.position.Set( o.x, o.y );
+
+
+    if( !o ) {
+        box2d._bodyDef.type = b2Body.b2_dynamicBody;
+    } else {
+        if( !o.static ) {
+            box2d._bodyDef.type = b2Body.b2_dynamicBody
+        } else {
+            box2d._bodyDef.type = b2Body.b2_staticBody;
+        }
+    }
+
+    var body = box2d.world.CreateBody( box2d._bodyDef );
+    body.CreateFixture( box2d._boxFixDef );
+	
+	body.beginContact = null;
+	
+    return body;
+
+
+
+>>>>>>> 7cfe4831b00a1c09eafa93bd91041642cc2b4ef5
 }
 
 Game.prototype.run = function(deltaTime) {
