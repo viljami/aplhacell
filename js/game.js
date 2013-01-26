@@ -33,7 +33,7 @@ Game.prototype.run = function(deltaTime) {
 
 	this.gravity();
 
-	var vector = this.getUnityGravityVector(this.player.GetWorldCenter());
+	var vector = this.getUnityGravityVector(this.player.body.GetWorldCenter());
 	var targetAngle = Math.atan2(vector.x, vector.y);
 	if (this.worldAngle < 0)
 		this.worldAngle = targetAngle;
