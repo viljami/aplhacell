@@ -23,14 +23,18 @@ function Player( o ) {
 	this.state = this.states.normal;
 
 	this.imgs = {
-		"normal": $('#cell').get(0),
-		"attack": $('#cellspikes').get(0)
+		"normal1": $('#cell1').get(0),
+		"normal2": $('#cell2').get(0),
+		"normal3": $('#cell3').get(0),
+		"attack": $('#cellspikes').get(0),
+		"disabled": $('#celldisabled').get(0)
 	}
 	
 	this.attackHandler = this.attackHandler.bind( this ); 
 	this.postAttackHandler = this.postAttackHandler.bind( this ); 
 	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
 	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
+
 }
 
 Player.prototype.imgs = {};
@@ -42,7 +46,13 @@ Player.prototype.draw = function ( context ) {
 	var s2 = 0.5;
 	var scale = s2;
 	context.scale( scale, scale );
-	var img = this.imgs[this.state];	
+	var img;
+	if (this.state == "normal") {
+		var index = Math.floor((game.gameTime/2) % 3) + 1;
+		img = this.imgs[this.state + index];
+	}
+	else
+		img = this.imgs[this.state];
 	context.drawImage( img, -img.width/2, -img.height/2 );
 	context.restore();
 }
