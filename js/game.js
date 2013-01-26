@@ -95,13 +95,16 @@ Game.prototype.update = function() {
 }
 
 Game.prototype.draw = function() {
+	var scale = 2;
+
 	//this.context.fillStyle = "black";
 	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 	this.context.save();
-	this.context.translate(this.canvas.width/2, this.canvas.height/2);
+	this.context.translate(this.canvas.width/2, 0);
 
 	this.context.rotate(this.worldAngle);
+	this.context.scale(scale, scale);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
 	box2d.world.DrawDebugData();
