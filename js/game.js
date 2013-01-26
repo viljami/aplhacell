@@ -1,17 +1,18 @@
 var game;
 var worm;
+var boil;
 
 function Game() {	
 	this.width = $('canvas').css('width');
 	this.height = $('canvas').css('height');
 	this.center = new b2Vec2( parseInt( this.width ) / 2, parseInt( this.height ) / 2 );
 	this.box2dCenter = new b2Vec2( parseInt( this.width ) / ( box2d.scale * 2), parseInt( this.height ) / ( box2d.scale * 2));
-	console.log( this.width, this.height, this.center, this.box2dCenter);
 	
 	box2d.init();
 	
 	worm = new Worm();
-
+	boil = new Boil();
+	
 	this.canvas = $( "#gamecanvas" ).get(0);
 	this.context = this.canvas.getContext( "2d" );
 	this.player = box2d.create.box({ w:1, h:1, x:15, y:6 });
@@ -31,6 +32,7 @@ Game.prototype.run = function(deltaTime) {
 	box2d.world.DrawDebugData();
 
 	worm.draw( box2d.context);
+	boil.draw( box2d.context);
 	
 	this.gravity();
 
@@ -46,7 +48,6 @@ Game.prototype.gravity = function () {
 	
 	// Check that will the peaces be pushed through the level ground
 	if( playerDistanceFromCenter <= this.level.r - 2 ) {
-		console.log( playerDistanceFromCenter, this.level.r)
 		var center = this.box2dCenter;
 		var force = pos.Copy();
 		force.Subtract(center);
