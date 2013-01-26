@@ -18,10 +18,12 @@ function Game() {
 	this.level = new Level( this );
 	
 	this.controls = new Controls();
+
+	this.gameTime = 0;
 }
 
 Game.prototype.run = function(deltaTime) {
-	
+	this.gameTime += deltaTime;
 	this.handleControls(); 
 	
 	//this.context.fillStyle = "red";
@@ -57,25 +59,35 @@ Game.prototype.gravity = function () {
 	}		
 }
 
+Game.prototype.getUnityGravityVector = function (pos) {
+	var center = this.box2dCenter;
+	var force = pos.Copy();
+	force.Subtract(center);
+	force.Normalize();
+	return force;
+}
+
 Game.prototype.handleControls = function () {
 	if( this.controls.keys.up.isDown ) {
 		var pos = this.player.GetWorldCenter();
-		var center = this.box2dCenter;
-		var force = pos.Copy();
-		force.Subtract(center);
-		force.Normalize();
-		force.Multiply(-70);
-		
-		this.player.ApplyForce(force, this.player.GetWorldCenter());		
+		var force = this.getUnityGravityVector(pos);
+		force.Multiply(-15 -20 * Math.sin(this.gameTime*5));
+		this.player.ApplyForce(force, pos);
 	}
 	if( this.controls.keys.down.isDown ) {
 		
 	}
 	if( this.controls.keys.left.isDown ) {
-		
+		var pos = this.player.GetWorldCenter();
+		var force = this.getUnityGravityVector(pos);
+		force.CrossVF(-30);
+		this.player.ApplyForce(force, pos);
 	}
 	if( this.controls.keys.right.isDown ) {
-		
+		var pos = this.player.GetWorldCenter();
+		var force = this.getUnityGravityVector(pos);
+		force.CrossVF(30);
+		this.player.ApplyForce(force, pos);
 	}
 	if( this.controls.keys.space.isDown ) {
 		
