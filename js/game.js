@@ -35,7 +35,7 @@ Game.prototype.run = function(deltaTime) {
 
 	this.gravity();
 
-	var vector = this.getUnityGravityVector(this.player.GetWorldCenter());
+	var vector = this.getUnityGravityVector(this.player.body.GetWorldCenter());
 	var targetAngle = Math.atan2(vector.x, vector.y);
 	if (this.worldAngle < 0)
 		this.worldAngle = targetAngle;
@@ -60,7 +60,15 @@ Game.prototype.run = function(deltaTime) {
 }
 
 Game.prototype.update = function() {
-	worm.update();
+	if( worm ) {
+		worm.update();
+	}
+	if( !worm || !worm.removeMe ) {
+		
+	} else {
+		worm.remove();
+		worm = null;
+	}
 }
 
 Game.prototype.draw = function() {
@@ -71,7 +79,7 @@ Game.prototype.draw = function() {
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
 	box2d.world.DrawDebugData();
-	worm.draw( box2d.context);
+	if(worm != null )worm.draw( box2d.context);
 
 	this.level.draw(this.context);
 	this.context.restore();
