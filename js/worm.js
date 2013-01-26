@@ -87,7 +87,7 @@ Worm.prototype.draw = function ( context ) {
 	context.drawImage(this.imgs.head,-37,-37);
 	//overlay
 	if (this.eggTimeLeft < 3 && game.gameTime % 0.5 > 0.2) {
-        context.fillStyle = "rgba(255, 0, 0, 0.4)";
+        context.fillStyle = "rgba(255, 0, 0, 0.2)";
         context.beginPath();
         context.arc(0, 0, 37, 0, (Math.PI * 2), true);
         context.closePath();

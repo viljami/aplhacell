@@ -162,7 +162,7 @@ var ParticleSystem = new function()
     			particle.vx = center.x;
     			particle.vy = center.y;
 
-    			particle.alpha = 0.4;
+    			particle.alpha = 0.5;
 
     			particle.rotation = Math.PI*2*Math.random();
     		}
