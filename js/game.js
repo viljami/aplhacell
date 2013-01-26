@@ -94,7 +94,7 @@ Game.prototype.update = function(deltaTime) {
 		
 	if( this.player ) {
 		this.player.setAmountOfWorms( this.worms.length );
-		this.player.update();
+		this.player.update(deltaTime);
 	}
 	
 	for (var i = this.worms.length - 1; i >= 0; i--) {
@@ -205,7 +205,7 @@ Game.prototype.handleControls = function () {
 	if( this.controls.keys.up.isDown ) {
 		var pos = this.player.body.GetWorldCenter();
 		var force = this.getUnityGravityVector(pos);
-		force.Multiply(-15 -20 * Math.sin(this.gameTime*5));
+		force.Multiply(-17 -10 * Math.sin(this.gameTime*5));
 		this.player.body.ApplyForce(force, pos);
 
 		if (this.state == "start")
@@ -217,7 +217,7 @@ Game.prototype.handleControls = function () {
 	if( this.controls.keys.left.isDown ) {
 		var pos = this.player.body.GetWorldCenter();
 		var force = this.getUnityGravityVector(pos);
-		force.CrossVF(-30);
+		force.CrossVF(-20);
 		this.player.body.ApplyForce(force, pos);
 
 		if (this.state == "start")
@@ -226,7 +226,7 @@ Game.prototype.handleControls = function () {
 	if( this.controls.keys.right.isDown ) {
 		var pos = this.player.body.GetWorldCenter();
 		var force = this.getUnityGravityVector(pos);
-		force.CrossVF(30);
+		force.CrossVF(20);
 		this.player.body.ApplyForce(force, pos);
 
 		if (this.state == "start")

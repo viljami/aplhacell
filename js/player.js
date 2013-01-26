@@ -116,7 +116,7 @@ Player.prototype.postAttackHandler = function () {
 	this.state = this.states.normal;
 }
 
-Player.prototype.update = function () {
+Player.prototype.update = function (deltaTime) {
 	if( this.body.beginContact != null ) {
 		var name1 = this.body.beginContact.GetFixtureA().GetBody().name;
 		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
@@ -148,6 +148,11 @@ Player.prototype.update = function () {
 	}
 	
 	this.updateLevels();
+
+	if (Math.random() < deltaTime) {
+		var pos = this.body.GetWorldCenter();
+		game.particleEngine.addParticle({x:pos.x*box2d.scale, y:pos.y*box2d.scale, color:"bubble"});
+	}
 }
 Player.prototype.recoveryMode = false;
 Player.prototype.recoverFromDamage = function () {

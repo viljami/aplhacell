@@ -28,7 +28,7 @@ function Level(game) {
 	}
 
 	//Mid
-	for (var a = 0; a < 6; a ++) {
+	for (var a = 0; a < 5; a ++) {
 		var angle = Math.random()*Math.PI*2;
 		var depth = 2 + (this.r-2) * Math.random();
 
