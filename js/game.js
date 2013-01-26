@@ -1,7 +1,15 @@
 var game;
 var worm;
-function Game() {
+
+function Game() {	
+	this.width = $('canvas').css('width');
+	this.height = $('canvas').css('height');
+	this.center = new b2Vec2( parseInt( this.width ) / 2, parseInt( this.height ) / 2 );
+	this.box2dCenter = new b2Vec2( parseInt( this.width ) / ( box2d.scale * 2), parseInt( this.height ) / ( box2d.scale * 2));
+	console.log( this.width, this.height, this.center, this.box2dCenter);
+	
 	box2d.init();
+	
 	this.player = box2d.create.box({w:1, h:1, x:2, y:3, static:false});
 	
 	worm = new Worm();
@@ -9,7 +17,7 @@ function Game() {
 	this.canvas = $("#gamecanvas").get(0);
 	this.context = this.canvas.getContext("2d");
 	this.player = box2d.create.box({w:1,h:1,x:2,y:2});
-	this.level = new Level(this.canvas);
+	this.level = new Level( this );
 	
 	this.controls = new Controls();
 }
@@ -41,7 +49,7 @@ Game.prototype.gravity = function () {
 	// Check that will the peaces be pushed through the level ground
 	if( playerDistanceFromCenter <= this.level.r - 2 ) {
 		console.log( playerDistanceFromCenter, this.level.r)
-		var center = new b2Vec2(7, 7);
+		var center = this.box2dCenter;
 		var force = pos;
 		force.Subtract(center);
 		force.Normalize();
@@ -54,7 +62,7 @@ Game.prototype.gravity = function () {
 Game.prototype.handleControls = function () {
 	if( this.controls.keys.up.isDown ) {
 		var pos = this.player.GetPosition();
-		var center = new b2Vec2(7, 7);
+		var center = this.box2dCenter;
 		var force = pos;
 		force.Subtract(center);
 		force.Normalize();
