@@ -1,6 +1,7 @@
 var worm; //can be removed
 
-function Game() {	
+function Game() {
+	game = this;	
 	this.width = $('canvas').css('width');
 	this.height = $('canvas').css('height');
 	this.center = new b2Vec2( parseInt( this.width ) / 2, parseInt( this.height ) / 2 );
@@ -27,7 +28,7 @@ function Game() {
 			x: this.box2dCenter.x + (this.level.r-1) * Math.sin(angle),
 			y: this.box2dCenter.y + (this.level.r-1) * Math.cos(angle),
 			r: 0.5,
-			a: (Math.random() + 1)*Math.PI
+			a: (Math.random() * 100)
 		};
 		var newWorm = new Worm(params);
 		this.worms.push(newWorm);

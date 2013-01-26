@@ -13,7 +13,8 @@ function Player( o ) {
 	this.levels = {
 		jump: 1,
 		attack: 1,
-		speed: 1
+		speed: 1,
+		health: 10
 	};
 	
 	this.states = { normal: 'normal', attack: 'attack' };
