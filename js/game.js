@@ -1,5 +1,7 @@
 
 function Game() {
+	new FrontLayer();
+	
 	game = this;	
 	this.width = $('canvas').css('width');
 	this.height = $('canvas').css('height');
