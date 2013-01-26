@@ -1,3 +1,4 @@
+
 function Player( o ) {
 	if ( !o ) {
 		o = {};
@@ -14,7 +15,8 @@ function Player( o ) {
 		jump: 1,
 		attack: 1,
 		speed: 1,
-		health: 10
+		health: 10,
+		recovery: 1000 // milliseconds
 	};
 	
 	this.states = { normal: 'normal', attack: 'attack' };
@@ -24,6 +26,9 @@ function Player( o ) {
 		"normal": $('#cell').get(0),
 		"attack": $('#cellspikes').get(0)
 	}
+	
+	this.attackHandler = this.attackHandler.bind( this ); 
+	this.postAttackHandler = this.postAttackHandler.bind( this ); 
 }
 
 Player.prototype.imgs = {};
@@ -36,7 +41,8 @@ Player.prototype.draw = function ( context ) {
 	var scale = s2;
 	context.scale( scale, scale );
 	var img = this.imgs[this.state];
-	context.drawImage(img, -img.width/2, -img.height/2);
+	console.log(img);
+	context.drawImage( img, -img.width/2, -img.height/2 );
 	context.restore();
 }
 
@@ -57,4 +63,22 @@ Player.prototype.update = function () {
 		// jump level up
 	}
 	
+}
+
+Player.prototype.attackReady = true;
+Player.prototype.attack = function () {
+	if( this.attackReady ) {
+		this.state = this.states.attack;
+		this.attackReady = false;
+		setTimeout( this.attackHandler, 1000 );
+	}
+}
+
+Player.prototype.attackHandler = function () {
+	this.state = this.states.normal;
+	
+	setTimeout( this.postAttackHandler, this.levels.recovery );
+}
+Player.prototype.postAttackHandler = function () {
+	this.attackReady = true;
 }

@@ -169,6 +169,6 @@ Game.prototype.handleControls = function () {
 		this.player.body.ApplyForce(force, pos);
 	}
 	if( this.controls.keys.space.isDown ) {
-		
+		this.player.attack();
 	}
 }
