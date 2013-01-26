@@ -2,35 +2,9 @@ var game;
 
 function Game() {
 	box2d.init();
-	box2d.create.box({w:1, h:1, x:3, y:3, static:false});
+	box2d.create.box({w:1, h:1, x:11, y:3, static:false});
 
-
-
-	//create world
-
-    box2d._boxFixDef.shape.SetAsBox( o.w, o.h );
-    box2d._bodyDef.position.Set( o.x, o.y );
-
-
-    if( !o ) {
-        box2d._bodyDef.type = b2Body.b2_dynamicBody;
-    } else {
-        if( !o.static ) {
-            box2d._bodyDef.type = b2Body.b2_dynamicBody
-        } else {
-            box2d._bodyDef.type = b2Body.b2_staticBody;
-        }
-    }
-
-    var body = box2d.world.CreateBody( box2d._bodyDef );
-    body.CreateFixture( box2d._boxFixDef );
-	
-	body.beginContact = null;
-	
-    return body;
-
-
-
+	this.level = new Level();
 }
 
 Game.prototype.run = function(deltaTime) {
