@@ -26,7 +26,7 @@ function Egg(o) {
 
 	this.image = $('#egg').get(0);
 
-	this.life = 10;
+	this.life = 7;
 	this.stuck = false;
 
 	this.removeMe = false;
@@ -61,7 +61,7 @@ Egg.prototype.update = function(deltaTime) {
 			this.remove();
 			this.body = box2d.create.circle({r: 0.3, x: x, y: y, static: true });
 			this.body.name = "egg";
-			this.life = 5;
+			this.life = 3;
 		}
 	}
 

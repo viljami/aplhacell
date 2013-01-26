@@ -66,6 +66,8 @@ Player.prototype.draw = function ( context ) {
 
 Player.prototype.gameOver = function () {
 	console.log('gameOver');
+	game.state = "dead";
+	this.state = "disabled";
 }
 Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;

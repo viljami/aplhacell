@@ -61,7 +61,7 @@ Game.prototype.run = function(deltaTime) {
 	this.calculateWorldAngle(deltaTime);
 
 	if (this.state == "running" && this.worms.length == 0)
-		this.state = "end";
+		this.state = "win";
 
 	this.draw(deltaTime);
 	
@@ -173,9 +173,21 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.font = "60px Arial";
 		this.context.fillText("Welcome", 200, 300);*/
 	}
-	else if (this.state == "end") {
-		this.context.font = "60px Arial";
-		this.context.fillText("Game over.", 200, 300);
+	else if (this.state == "dead") {
+		var scale = 0.7;
+		var img = $('#gameover').get(0);
+		this.context.save();
+		this.context.scale(scale, scale);
+		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
+		this.context.restore();
+	}
+	else if (this.state == "win") {
+		var scale = 0.7;
+		var img = $('#win').get(0);
+		this.context.save();
+		this.context.scale(scale, scale);
+		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
+		this.context.restore();
 	}
 	
 		//box2d.world.DrawDebugData();
@@ -209,10 +221,13 @@ Game.prototype.getUnityGravityVector = function (pos) {
 }
 
 Game.prototype.handleControls = function () {
+	if (this.state == "dead")
+		return;
+
 	if( this.controls.keys.up.isDown ) {
 		var pos = this.player.body.GetWorldCenter();
 		var force = this.getUnityGravityVector(pos);
-		force.Multiply(-17 -10 * Math.sin(this.gameTime*5));
+		force.Multiply(-17 -7 * Math.sin(this.gameTime*5));
 		this.player.body.ApplyForce(force, pos);
 
 		if (this.state == "start")

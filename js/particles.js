@@ -145,7 +145,7 @@ var ParticleSystem = new function()
     			particle.color = "rgb(255, "+Math.floor(colorB)+", "+Math.floor(colorB)+")";
     		}
     		else if (o.color == "worm")
-    			particle.color = "rgb("+Math.floor(Math.random()*150)+", 50, 0)";
+    			particle.color = "rgb(0, "+Math.floor(Math.random()*200)+", 120)";
     		else if (o.color == "bubble") {
     			particle.image = $( '#bubble' ).get( 0 );
     			particle.life = 4;
@@ -162,7 +162,7 @@ var ParticleSystem = new function()
     			particle.vx = center.x;
     			particle.vy = center.y;
 
-    			particle.alpha = 0.5;
+    			particle.alpha = 0.6;
 
     			particle.rotation = Math.PI*2*Math.random();
     		}
