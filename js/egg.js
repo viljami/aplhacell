@@ -53,7 +53,7 @@ Egg.prototype.update = function(deltaTime) {
 		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
 
 		if ((name1 && name1 == "ground" || name2 && name2 == "ground") &&
-			(name1 && name1 == "egg" || name2 && name2 == "egg")) {
+			(this.body.beginContact.GetFixtureA().GetBody() == this.body || this.body.beginContact.GetFixtureB().GetBody() == this.body)) {
 			console.log(this.body.beginContact);
 			this.stuck = true;
 			var x = this.body.GetWorldCenter().x;

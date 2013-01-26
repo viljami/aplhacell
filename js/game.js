@@ -27,8 +27,8 @@ function Game() {
 		var angle = Math.PI + Math.random()*Math.PI;
 		
 		var params = {
-			x: this.box2dCenter.x + (this.level.r-1) * Math.sin(angle),
-			y: this.box2dCenter.y + (this.level.r-1) * Math.cos(angle),
+			//x: this.box2dCenter.x + (this.level.r-1) * Math.sin(angle),
+			//y: this.box2dCenter.y + (this.level.r-1) * Math.cos(angle),
 			r: 0.5,
 			a: (Math.random() * 100)
 		};
@@ -59,8 +59,6 @@ Game.prototype.run = function(deltaTime) {
 	this.gravity();
 
 	this.calculateWorldAngle(deltaTime);
-
-	this.particleEngine.addParticle();
 
 	if (this.state == "running" && this.worms.length == 0)
 		this.state = "end";
@@ -143,7 +141,7 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 	this.context.save();
-	this.context.translate(this.canvas.width/2, 0);
+	this.context.translate(this.canvas.width/2, -70);
 
 	this.context.rotate(this.worldAngle);
 	this.context.scale(scale, scale);
