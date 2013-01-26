@@ -2,7 +2,7 @@ var game;
 
 function Game() {
 	box2d.init();
-	box2d.create.box({w:1, h:1, x:11, y:3, static:false});
+	box2d.create.box({w:1, h:1, x:3, y:3, static:false});
 
 	this.level = new Level();
 }
