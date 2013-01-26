@@ -40,9 +40,10 @@ Game.prototype.draw = function() {
 	this.context.save();
 	this.context.translate(this.canvas.width/2, this.canvas.height/2);
 	
-	//this.getUnityGravityVector()
+	var vector = this.getUnityGravityVector(this.player.GetWorldCenter());
+	var angle = Math.atan2(vector.x, vector.y);
 
-	this.context.rotate(this.gameTime/20);
+	this.context.rotate(angle);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
 	box2d.world.DrawDebugData();
