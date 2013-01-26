@@ -8,36 +8,26 @@
 \
 koko:800 * 600\
 \
-\
 alpha cell\
 	alpha cell basic 60*60px\
 	alpha cell spikes open 80*80px\
 \
 Worm\
-	Worm parts	\
-	ball 1\
-	ball 2	\
-	ball 3\
-	ball 1 exploding ? \'85\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 	ball 2 exploding ? ...\
-	ball 3 exploding ? ...\
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 Egg\
+	worm-body\
+	worm-head \
+	worm_part exploding (body)\
+	worm_head exploding\
+	worm-head-spit (spit egg)\
+Egg\
 	egg normal\
 	egg flying\
-\
 \
 Boil\
 	boil basic\
 	boil 1 (smallest)\
-	boil 2\
+	boil 2 ()\
 	boil 3 (biggest)\
 \
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 \
 Background\
 	one or more parts\
 	(health: sick, ok, perfect)\
@@ -48,11 +38,19 @@ Surroundings\
 	ok\
 	WIN\
 \
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 Health bars \
+Health bars \
 	alphacell health bar\
 	field health bar\
 \
+Water / slime effect ?\
+	bubble 1\
+	bubble 2 ..\
+	what else is there\
+\
+\
 typography\
-FONT?}
+FONT?\
+\
+\
+\
+}
