@@ -42,8 +42,7 @@ Player.prototype.draw = function ( context ) {
 	var s2 = 0.5;
 	var scale = s2;
 	context.scale( scale, scale );
-	var img = this.imgs[this.state];
-	console.log(img);
+	var img = this.imgs[this.state];	
 	context.drawImage( img, -img.width/2, -img.height/2 );
 	context.restore();
 }
