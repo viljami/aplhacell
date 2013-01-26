@@ -10,6 +10,8 @@ function Game() {
 	this.context = this.canvas.getContext("2d");
 
 	this.level = new Level(this.canvas);
+	
+	new Controls();
 }
 
 Game.prototype.run = function(deltaTime) {
@@ -18,7 +20,11 @@ Game.prototype.run = function(deltaTime) {
 	box2d.world.ClearForces();
 
 	box2d.world.DrawDebugData();
+
+
 worm.draw( box2d.context);
+
+
 	this.level.draw(this.context);
 
 /*
