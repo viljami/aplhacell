@@ -9,7 +9,7 @@ function Worm( o ) {
 	}
 	
 	var center = game.box2dCenter;
-	var distances = [ 8.5, 8.5-o.r, 8.5-o.r*2 ];
+	var distances = [ 8.5, 8.5-o.r, 8.5-(o.r*2) ];
 	var angle = o.a || Math.PI;
 	
 	var position1 = new b2Vec2( center.x + distances[ 0 ] * Math.cos( angle ), center.y + distances[ 0 ] * Math.sin( angle ));
@@ -17,8 +17,8 @@ function Worm( o ) {
 	var position3 = new b2Vec2( center.x + distances[ 2 ] * Math.cos( angle ), center.y + distances[ 2 ] * Math.sin( angle ));
 	
 	var bottom = box2d.create.circle({r: o.r, x: position1.x, y: position1.y, static: true }),
-		middle = box2d.create.circle({r: o.r * 0.8, x: position2.x, y: position2.y, density: 0.8 }),
-		head = box2d.create.circle({r: o.r * 0.6, x: position3.x, y: position3.y, density: 0.2 }),
+		middle = box2d.create.circle({r: o.r * 0.8, x: position2.x, y: position2.y, density: 0.8, static: Math.random() < 0.5 }),
+		head = box2d.create.circle({r: o.r * 0.6, x: position3.x, y: position3.y, density: 0. }),
 /*	
 	var bottom = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: true }),
 	    middle = box2d.create.circle({r: o.r * 0.8, x: o.x, y: o.y - o.r, density: 0.8 }),
