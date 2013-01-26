@@ -11,8 +11,18 @@ function Player( o ) {
 	this.body.name = 'player';
 	
 	this.imgs = {
-		body: $('#wormHead').get(0)
+		body: $('#wormHead').get(0),
+		bodyAttack: $('#wormHead').get(0)
 	}
+	
+	this.levels = {
+		jump: 1,
+		attack: 1,
+		speed: 1
+	};
+	
+	this.states = { normal: 'normal', attack: 'attack' };
+	this.state = this.states.normal;
 }
 
 Player.prototype.imgs = {};
@@ -24,6 +34,29 @@ Player.prototype.draw = function ( context ) {
 	var s2 = 0.5;
 	var scale = s2;
 	context.scale( scale, scale );
-	context.drawImage( this.imgs.body, -40, -40);
+	if( this.state = this.states.normal ) { 
+		context.drawImage( this.imgs.body, -40, -40);
+	} else {
+		context.drawImage( this.imgs.bodyAttack, -40, -40);
+	}
 	context.restore();
+}
+
+Player.prototype.update = function () {
+	if ( score.wormsKilled > 2 ) {
+		// attack level up
+	} else if ( score.wormsKilled > 7 ) {
+		// attack level up
+	} else if ( score.wormsKilled > 15 ) {
+		// attack level up
+	}
+	
+	if ( score.boilsKilled > 2 ) {
+		// jump level up
+	} else if ( score.boilsKilled > 7 ) {
+		// jump level up
+	} else if ( score.boilsKilled > 15 ) {
+		// jump level up
+	}
+	
 }
