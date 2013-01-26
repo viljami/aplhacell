@@ -1,4 +1,3 @@
-var worm; //can be removed
 
 function Game() {
 	game = this;	
@@ -9,8 +8,6 @@ function Game() {
 	console.log( this.width, this.height, this.center, this.box2dCenter);
 	
 	box2d.init();
-
-	worm = new Worm();
 
 	this.canvas = $( "#gamecanvas" ).get(0);
 	this.context = this.canvas.getContext( "2d" );
@@ -80,23 +77,18 @@ Game.prototype.run = function(deltaTime) {
 }
 
 Game.prototype.update = function() {
-	if( worm ) {
-		worm.update();
+	if( this.player ) {
+		this.player.update();
 	}
+	
 	for (var i = this.worms.length - 1; i >= 0; i--) {
-		this.worms[i].update();
+		this.worms[i].update( this.player.isAttacking() );
 		if (this.worms[i].removeMe) {
 			this.worms[i].remove();
 			this.worms.splice(i, 1);
 		}
 	}
 
-	if( !worm || !worm.removeMe ) {
-		
-	} else {
-		worm.remove();
-		worm = null;
-	}
 }
 
 Game.prototype.draw = function(deltaTime) {
@@ -113,7 +105,6 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
 	box2d.world.DrawDebugData();
-	if(worm != null )worm.draw( box2d.context);
 
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
@@ -176,6 +167,6 @@ Game.prototype.handleControls = function () {
 		this.player.body.ApplyForce(force, pos);
 	}
 	if( this.controls.keys.space.isDown ) {
-		
+		this.player.attack();
 	}
 }

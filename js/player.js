@@ -1,3 +1,4 @@
+
 function Player( o ) {
 	if ( !o ) {
 		o = {};
@@ -14,7 +15,8 @@ function Player( o ) {
 		jump: 1,
 		attack: 1,
 		speed: 1,
-		health: 10
+		health: 10,
+		recovery: 1000 // milliseconds
 	};
 	
 	this.states = { normal: 'normal', attack: 'attack' };
@@ -24,6 +26,11 @@ function Player( o ) {
 		"normal": $('#cell').get(0),
 		"attack": $('#cellspikes').get(0)
 	}
+	
+	this.attackHandler = this.attackHandler.bind( this ); 
+	this.postAttackHandler = this.postAttackHandler.bind( this ); 
+	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
+	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
 }
 
 Player.prototype.imgs = {};
@@ -36,7 +43,8 @@ Player.prototype.draw = function ( context ) {
 	var scale = s2;
 	context.scale( scale, scale );
 	var img = this.imgs[this.state];
-	context.drawImage(img, -img.width/2, -img.height/2);
+	console.log(img);
+	context.drawImage( img, -img.width/2, -img.height/2 );
 	context.restore();
 }
 
@@ -57,4 +65,63 @@ Player.prototype.update = function () {
 		// jump level up
 	}
 	
+}
+
+Player.prototype.attackReady = true;
+Player.prototype.attack = function () {
+	if( this.attackReady ) {
+		this.state = this.states.attack;
+		this.attackReady = false;
+		setTimeout( this.attackHandler, 1000 );
+	}
+}
+
+Player.prototype.attackHandler = function () {
+	this.state = this.states.normal;
+	
+	setTimeout( this.postAttackHandler, this.levels.recovery );
+}
+
+Player.prototype.postAttackHandler = function () {
+	this.attackReady = true;
+}
+
+Player.prototype.update = function () {
+	if( this.body.beginContact != null ) {
+		if( this.state != this.states.attack ) {
+			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
+				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {
+					if ( !this.recoveryMode ) {
+						this.recoveryMode = true;
+						this.bodyImage = $(document.body).css( 'background-image' );
+						$(document.body).css( {'background-image': 'url("img/bg_sick_tile.png")' });
+						this.levels.health--;
+						setTimeout( this.recoverFromDamage, 100 );
+					}
+			}
+		}
+	}
+	if( this.body.endContact ) {
+		this.body.beginContact = null;
+		this.body.endContact = false;
+	}
+}
+Player.prototype.recoveryMode = false;
+Player.prototype.recoverFromDamage = function () {
+	if( !this.recoveryMode ) {
+		return;
+	}
+	$(document.body).css( {'background-image': this.bodyImage });
+	
+	setTimeout( this.postRecoverFromDamage, 300 );
+}
+Player.prototype.postRecoverFromDamage = function () {
+	this.recoveryMode = false;
+}
+
+Player.prototype.getState = function () {
+	return this.state;
+}
+Player.prototype.isAttacking = function () {
+	return this.state == this.states.attack;
 }

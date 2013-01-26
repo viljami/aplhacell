@@ -49,7 +49,9 @@ function Worm( o ) {
 	this.bottom = bottom;
 	this.middle = middle;
 	this.head = head;
-	
+	this.head.name = 'worm';
+	this.middle.name = 'worm';
+	this.bottom.name = 'worm';
 	this.imgs = {
 		head: $('#wormHead').get(0),
 		middle: $('#wormBody').get(0),
@@ -92,13 +94,15 @@ Worm.prototype.draw = function ( context ) {
 	context.restore();
 }
 
-Worm.prototype.update = function () {
+Worm.prototype.update = function ( isPlayerAttacking ) {
 	
 	if( this.head.beginContact != null ) {
-		if( (this.head.beginContact.GetFixtureA().GetBody().name && this.head.beginContact.GetFixtureA().GetBody().name == 'player' ) ||
-			(this.head.beginContact.GetFixtureB().GetBody().name && this.head.beginContact.GetFixtureB().GetBody().name == 'player' )) {
-				console.log('contact -----------------');
-				this.removeMe = true;
+		if( isPlayerAttacking ) {
+			if( (this.head.beginContact.GetFixtureA().GetBody().name && this.head.beginContact.GetFixtureA().GetBody().name == 'player' ) ||
+				(this.head.beginContact.GetFixtureB().GetBody().name && this.head.beginContact.GetFixtureB().GetBody().name == 'player' )) {
+					console.log('contact -----------------');
+					this.removeMe = true;
+			}
 		}
 	}
 	if( this.head.endContact ) {
