@@ -3,6 +3,24 @@ function FrontLayer() {
 		body: $('#frontTile'),
 	}
 	
+	if( window.innerWidth > 800 ) {
+		this.imgs.midBody = this.imgs.body.clone().appendTo(document.body).css({
+			position: 'fixed',
+			bottom: '-30%',
+			right:'26.5%',
+			width: '50%',
+			height: '50%',
+			zIndex: '1'
+		});
+		
+		this.imgs.leftTopBody = this.imgs.body.clone().appendTo(document.body).css({
+			position: 'fixed',
+			top: '-15%',
+			left:'-26%',
+			width: '50%',
+			zIndex: '1'
+		});
+	}
 	this.imgs.leftBody = this.imgs.body.clone().appendTo(document.body).css({
 		position: 'fixed',
 		bottom: '-90px',
@@ -16,6 +34,8 @@ function FrontLayer() {
 		right:'-80px',
 		zIndex: '1'
 	});
+	
+	
 	
 	this.handlePulse = this.handlePulse.bind( this );
 	
