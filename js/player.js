@@ -15,7 +15,12 @@ function Player( o ) {
 		jump: 1,
 		attack: 1,
 		speed: 1,
+		maxHealth: 10,
 		health: 10,
+		hostHealth: 11,
+		hostHealthMax: 10,
+		amountOfWorms: 0,
+		hostTolerance: 4,
 		recovery: 1000 // milliseconds
 	};
 	
@@ -34,7 +39,9 @@ function Player( o ) {
 	this.postAttackHandler = this.postAttackHandler.bind( this ); 
 	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
 	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
-
+	
+	this.healthbar = new Healthbar();
+	this.hostHealthbar = new Healthbar({w: 200, h: 30, x: 10, y: 50, p: 1});
 }
 
 Player.prototype.imgs = {};
@@ -57,7 +64,21 @@ Player.prototype.draw = function ( context ) {
 	context.restore();
 }
 
-Player.prototype.update = function () {
+Player.prototype.gameOver = function () {
+	console.log('gameOver');
+}
+Player.prototype.setAmountOfWorms = function( n ) {
+	this.levels.amountOfWorms = n;
+	var percentage = ( this.levels.hostHealthMax - ( n % this.levels.hostTolerance )) / this.levels.hostHealthMax;
+	console.log(percentage, this.levels.hostHealthMax, n,this.levels.hostTolerance, this.levels.hostHealthMax);
+	this.hostHealthbar.updatePercentage( percentage );
+}
+Player.prototype.updateLevels = function () {
+	if( this.levels.health <= 0 ) {
+		this.gameOver();
+	} 
+	this.healthbar.updatePercentage( this.levels.health / this.levels.maxHealth );
+	
 	if ( score.wormsKilled > 2 ) {
 		// attack level up
 	} else if ( score.wormsKilled > 7 ) {
@@ -126,6 +147,8 @@ Player.prototype.update = function (deltaTime) {
 		this.body.beginContact = null;
 		this.body.endContact = false;
 	}
+	
+	this.updateLevels();
 
 	if (Math.random() < deltaTime) {
 		var pos = this.body.GetWorldCenter();
