@@ -1,6 +1,7 @@
 
 function Game() {
 	//new FrontLayer();
+	this.scoreDialog = new ScoreDisplay();
 	
 	game = this;	
 	this.width = $('canvas').css('width');
@@ -178,6 +179,10 @@ Game.prototype.draw = function(deltaTime) {
 
 	this.context.restore();
 
+	if( score.startTime == null && this.state == 'running' ) {
+		score.startTime = new Date();
+	}
+		
 	if (this.state == "start") {
 		var scale = 0.7;
 		var img = $('#startpicture').get(0);
@@ -185,6 +190,7 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.scale(scale, scale);
 		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
 		this.context.restore();
+		
 /*
 		this.context.font = "60px Arial";
 		this.context.fillText("Welcome", 200, 300);*/
@@ -196,6 +202,12 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.scale(scale, scale);
 		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
 		this.context.restore();
+		
+		if( score.endTime == null ) {
+			score.endTime = score.startTime; // no bonus from dying
+			this.scoreDialog.show();
+		}
+		
 	}
 	else if (this.state == "win") {
 		var scale = 0.7;
@@ -204,6 +216,11 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.scale(scale, scale);
 		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
 		this.context.restore();
+		
+		if( score.endTime == null ) {
+			score.endTime = new Date(); 
+			this.scoreDialog.show();
+		}
 	}
 	
 		//box2d.world.DrawDebugData();
@@ -240,6 +257,7 @@ Game.prototype.handleControls = function () {
 
 	if (this.controls.keys.reset.isDown) {
 		this.reset = true;
+		this.scoreDialog.hide();
 	}
 
 	if (this.state == "dead")
