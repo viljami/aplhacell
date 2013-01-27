@@ -33,9 +33,13 @@ function Egg(o) {
 }
 
 Egg.prototype.draw = function(context) {
+	
 	context.save();
 	context.translate( this.body.GetPosition().x * box2d.scale, this.body.GetPosition().y * box2d.scale ); 
 	context.rotate( this.body.GetAngle() );
+
+	if (this.stuck) 
+		context.globalAlpha = 0.7 + 0.5*Math.sin(game.gameTime*20);
 
 	var s2 = 0.3;
 	var scale = s2;
