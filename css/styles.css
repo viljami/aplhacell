@@ -42,12 +42,12 @@ body {
 	border-radius: 8px;
 }
 .player {	
-	background-image: url('../img/alphacell-disabled.png');
+	background-image: url('../img/energy_bg_cell.png');
 	background-repeat: none;
 }
 
 .host {	
-	background-image: url('../img/front-tile.png');
+	background-image: url('../img/energy_bg_host.png');
 	background-repeat: none;
 }
 
