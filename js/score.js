@@ -8,11 +8,11 @@ var score = {
 function ScoreDisplay() {
 	this.show = function () {
 		
-		var timeBonus = ( score.endTime.getTime() - score.startTime.getTime() ) * 100;
+		var timeBonus = Math.floor( ( score.endTime.getTime() - score.startTime.getTime() ) / 100 ); 
 		console.log( timeBonus, score.endTime.getTime(), score.startTime.getTime() );
 		console.log(this.dialog);
 		if( !this.dialog ) {
-			var fullBonus = score.wormsKilled * 10000 + timeBonus;
+			var fullBonus = score.wormsKilled * 100 + timeBonus;
 			this.dialog = $('<div id="scoreDialog"><h1>Scores</h1><table style="margin: 0px auto;"><tr><td style="width:100px;"> Worms killed: </td><td style="width:100px;">' + 
 				score.wormsKilled + '</td></tr><tr><td>Time bonus: </td><td>' + timeBonus + '</td></tr><tr><td>Total: </td><td>' + fullBonus  + '</td></tr><tr></tr></table><br /><br /><br /><p>Press R to replay!</p></div>').appendTo('#canvasContainer');
 		}
@@ -31,8 +31,8 @@ function ScoreDisplay() {
 	
 	this.reset = function ()  {
 		this.dialog = null;
-		this.startTime = null;
-		this.endTime = null;
-		this.wormsKilled = 0;
+		score.startTime = null;
+		score.endTime = null;
+		score.wormsKilled = 0;
 	}
 }
