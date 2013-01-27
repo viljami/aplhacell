@@ -70,10 +70,10 @@ function Worm( o ) {
 		bottom: $('#wormBody').get(0)
 	}
 
-	this.eggInterval = 6 * Math.random();
+	this.eggInterval = 3 * Math.random();
 
 	if (game && game.gameTime)
-		this.eggInterval += game.gameTime;
+		this.eggInterval += game.gameTime*0.7;
 
 	this.eggInterval = Math.min(20, this.eggInterval);
 
@@ -124,6 +124,9 @@ Worm.prototype.draw = function ( context ) {
 
 Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
 	this.eggTimeLeft -= deltaTime;
+
+	if (game.worms.length <= 2)
+		this.eggTimeLeft -= 2*deltaTime;
 
 	if (this.eggTimeLeft <= 0) {
 

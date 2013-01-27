@@ -24,7 +24,7 @@ function Game() {
 	this.worms = [];
 	this.eggs = [];
 
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 6; i++) {
 		var angle = Math.PI + Math.random()*Math.PI;
 		
 		var params = {
@@ -45,7 +45,7 @@ function Game() {
 	ParticleSystem.init(this.canvas);
 	this.particleEngine = ParticleSystem;
 
-	$("#aih").get(0).volume = 0.5;
+	$("#aih").get(0).volume = 0.45;
 	$("#squeeze").get(0).volume = 0.6;
 	$("#attacksound").get(0).volume = 0.4;
 	$("#deadsong").get(0).volume = 0.5;
