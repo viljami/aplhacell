@@ -99,10 +99,7 @@ Player.prototype.draw = function ( context ) {
 }
 
 Player.prototype.gameOver = function () {
-	console.log('gameOver');
-
 	this.state = "disabled";
-
 	game.lose();
 }
 
@@ -230,7 +227,6 @@ Player.prototype.update = function (deltaTime) {
 			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
 				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {
 					if ( !this.recoveryMode ) {
-						console.log("aih", this.body.beginContact);
 						$("#aih").get(0).play();
 						this.recoveryMode = true;
 						this.bodyImage = $(document.body).css( 'background-image' );

@@ -8,8 +8,7 @@ function Game() {
 	this.height = $('canvas').css('height');
 	this.center = new b2Vec2( parseInt( this.width ) / 2, parseInt( this.height ) / 2 );
 	this.box2dCenter = new b2Vec2( parseInt( this.width ) / ( box2d.scale * 2), parseInt( this.height ) / ( box2d.scale * 2));
-	console.log( this.width, this.height, this.center, this.box2dCenter);
-	
+
 	box2d.init();
 
 	this.canvas = $( "#gamecanvas" ).get(0);
@@ -224,8 +223,6 @@ Game.prototype.draw = function(deltaTime) {
 Game.prototype.gravity = function () {
 	var pos = this.player.body.GetWorldCenter();
 	var playerDistanceFromCenter = this.level.r + 10 - ( pos.x * pos.x + pos.y * pos.y );
-	
-	//console.log( playerDistanceFromCenter, this.level.r)
 	
 	// Check that will the peaces be pushed through the level ground
 	if( playerDistanceFromCenter <= this.level.r - 2 ) {
