@@ -113,21 +113,56 @@ Player.prototype.setAmountOfWorms = function( n ) {
 	if (percentage <= 0)
 		game.lose();
 
+	function removeAllBeats() {
+		$('.west').removeClass('beatleft');
+		$('.east').removeClass('beatright');
+		$('.west').removeClass('beatleftFast');
+		$('.east').removeClass('beatrightFast');
+		$('.south').removeClass('beatbottom');
+		$('.south').removeClass('beatbottomFast');
+		$('.southwest').removeClass('beatleft');
+		$('.southeast').removeClass('beatright');
+		$('.southwest').removeClass('beatleftFast');
+		$('.southeast').removeClass('beatrightFast');
+		$('.southsouthwest').removeClass('beatleft');
+		$('.southsoutheast').removeClass('beatright');
+		$('.southsouthwest').removeClass('beatleftFast');
+		$('.southsoutheast').removeClass('beatrightFast');
+	}
+	
 	if ( percentage > 0.7 && percentage < 0.9 ) {
+		removeAllBeats();
 		$('.west').addClass('beatleft');
 		$('.east').addClass('beatright');
+		$('.southwest').addClass('beatleft');
+		$('.southeast').addClass('beatright');
 	} else if ( percentage < 0.6 ) {
-		$('.southsouthwest').addClass('beatleft');
-		$('.southsoutheast').addClass('beatleft');
-		$('.west').removeClass('beatleft');
+		removeAllBeats();
 		$('.west').addClass('beatleftFast');
-		$('.east').removeClass('beatright');
 		$('.east').addClass('beatrightFast');
+		$('.south').addClass('beatbottom');
+		$('.southwest').addClass('beatleft');
+		$('.southeast').addClass('beatright');
+		$('.southsouthwest').addClass('beatleft');
+		$('.southsoutheast').addClass('beatright');
 	} else if ( percentage < 0.3 ) {
-		$('.southwest').removeClass('beatleft');
-		$('.southeast').removeClass('beatleft');
+		removeAllBeats();
+		$('.south').addClass('beatbottomFast');
+		$('.west').addClass('beatleftFast');
+		$('.east').addClass('beatrightFast');
 		$('.southwest').addClass('beatleftFast');
-		$('.southeast').addClass('beatleftFast');
+		$('.southeast').addClass('beatrightFast');
+		$('.southsouthwest').addClass('beatleftFast');
+		$('.southsoutheast').addClass('beatrightFast');
+	} else if ( percentage < 0.2 ) {
+		removeAllBeats();
+		$('.south').addClass('beatbottomFast');
+		$('.west').addClass('beatleftFast');
+		$('.east').addClass('beatrightFast');
+		$('.southwest').addClass('beatleftFast');
+		$('.southeast').addClass('beatrightFast');
+		$('.southsouthwest').addClass('beatleft');
+		$('.southsoutheast').addClass('beatright');
 	}
 }
 Player.prototype.updateLevels = function () {

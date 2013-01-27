@@ -77,29 +77,51 @@ body {
     margin-right: 0px;
   }
 }
+@-webkit-keyframes beatbottom {
+  from {
+      margin-top: 10px;
+  }
+ 
+  to {
+    margin-top: 0px;
+  }
+}
+
+.beatbottom {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 2.5s;
+    -webkit-animation-name: beatbottom;
+}
+.beatbottomFast {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 0.5s;
+    -webkit-animation-name: beatbottom;
+}
 .beatleft {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 3s;
+	-webkit-animation-duration: 2.5s;
     -webkit-animation-name: beatleft;
 }
 .beatleftFast {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 0.5s;
     -webkit-animation-name: beatleft;
 }
 
 .beatright  {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 3s;
+	-webkit-animation-duration: 2.5s;
     -webkit-animation-name: beatright;
 }
 .beatrightFast  {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 0.5s;
     -webkit-animation-name: beatright;
 }
 
