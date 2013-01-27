@@ -46,8 +46,9 @@ function Game() {
 	this.particleEngine = ParticleSystem;
 
 	$("#aih").get(0).volume = 0.5;
-	$("#squeeze").get(0).volume = 0.8;
-	$("#attacksound").get(0).volume = 0.6;
+	$("#squeeze").get(0).volume = 0.6;
+	$("#attacksound").get(0).volume = 0.4;
+	$("#deadsong").get(0).volume = 0.5;
 
 	$(document.body).css( {'background-image': 'url("img/bg_normal_tile.png")' });
 }
