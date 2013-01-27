@@ -72,6 +72,8 @@ Game.prototype.run = function(deltaTime) {
 	if (this.state == "running" && this.worms.length == 0) {
 		$("#winsong").get(0).play();
 		this.state = "win";
+		score.endTime = new Date(); 
+		this.scoreDialog.show();
 	}
 
 	this.draw(deltaTime);
@@ -164,8 +166,6 @@ Game.prototype.draw = function(deltaTime) {
 	this.context.scale(scale, scale);
 	this.context.translate(-this.canvas.width/2, -this.canvas.height/2);
 
-
-
 	this.level.draw(this.context);
 	for (var i = 0; i < this.worms.length; i++)
 		this.worms[i].draw(box2d.context);
@@ -202,12 +202,6 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.scale(scale, scale);
 		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
 		this.context.restore();
-		
-		if( score.endTime == null ) {
-			score.endTime = score.startTime; // no bonus from dying
-			this.scoreDialog.show();
-		}
-		
 	}
 	else if (this.state == "win") {
 		var scale = 0.7;
@@ -216,11 +210,6 @@ Game.prototype.draw = function(deltaTime) {
 		this.context.scale(scale, scale);
 		this.context.drawImage(img, this.canvas.width/2/scale - img.width/2, 0);
 		this.context.restore();
-		
-		if( score.endTime == null ) {
-			score.endTime = new Date(); 
-			this.scoreDialog.show();
-		}
 	}
 	
 		//box2d.world.DrawDebugData();
@@ -306,5 +295,8 @@ Game.prototype.lose = function() {
 		this.state = "dead";
 		$(document.body).css( {'background-image': 'url("img/bg_dead_tile.png")' });
 		$("#deadsong").get(0).play();
+		
+		score.endTime = score.startTime; // no bonus from dying
+		this.scoreDialog.show();
 	}
 }
