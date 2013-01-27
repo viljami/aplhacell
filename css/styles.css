@@ -32,11 +32,6 @@ table { color: #cc4444; }
 	padding: 20px;
 	text-align:center;
 	color: #cc4444;
-	/*
-	background-color: #fff;
-	border-radius: 8px;
-	opacity: 0.7;
-	box-shadow: 10px 10px 10px 1px #000; */ /* h-shadow v-shadow blur spread color inset */
 }
 
 .bar {
