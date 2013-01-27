@@ -130,40 +130,37 @@ Player.prototype.setAmountOfWorms = function( n ) {
 		$('.southsouthwest').removeClass('beatleftFast');
 		$('.southsoutheast').removeClass('beatrightFast');
 	}
-	
-	if ( percentage > 0.7 && percentage < 0.9 ) {
+	if ( percentage > 0.8 ) {
+		removeAllBeats();
+		$('.southwest').addClass('beatleft');
+		$('.southeast').addClass('beatright');
+	} else if ( percentage > 0.6 ) {
 		removeAllBeats();
 		$('.west').addClass('beatleft');
-		$('.east').addClass('beatright');
-		$('.southwest').addClass('beatleft');
-		$('.southeast').addClass('beatright');
-	} else if ( percentage < 0.6 ) {
-		removeAllBeats();
-		$('.west').addClass('beatleftFast');
 		$('.east').addClass('beatrightFast');
 		$('.south').addClass('beatbottom');
-		$('.southwest').addClass('beatleft');
+		$('.southwest').addClass('beatleftFast');
 		$('.southeast').addClass('beatright');
 		$('.southsouthwest').addClass('beatleft');
 		$('.southsoutheast').addClass('beatright');
-	} else if ( percentage < 0.3 ) {
+	} else if ( percentage > 0.3 ) {
 		removeAllBeats();
 		$('.south').addClass('beatbottomFast');
 		$('.west').addClass('beatleftFast');
-		$('.east').addClass('beatrightFast');
+		$('.east').addClass('beatright');
 		$('.southwest').addClass('beatleftFast');
-		$('.southeast').addClass('beatrightFast');
+		$('.southeast').addClass('beatright');
 		$('.southsouthwest').addClass('beatleftFast');
 		$('.southsoutheast').addClass('beatrightFast');
-	} else if ( percentage < 0.2 ) {
+	} else if ( percentage > 0 ) {
 		removeAllBeats();
 		$('.south').addClass('beatbottomFast');
 		$('.west').addClass('beatleftFast');
 		$('.east').addClass('beatrightFast');
-		$('.southwest').addClass('beatleftFast');
-		$('.southeast').addClass('beatrightFast');
-		$('.southsouthwest').addClass('beatleft');
-		$('.southsoutheast').addClass('beatright');
+		$('.southwest').addClass('beatleft');
+		$('.southeast').addClass('beatright');
+		$('.southsouthwest').addClass('beatleftFast');
+		$('.southsoutheast').addClass('beatrightFast');
 	}
 }
 Player.prototype.updateLevels = function () {
