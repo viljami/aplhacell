@@ -13,11 +13,11 @@ function Healthbar( o ) {
 	this.y = o.y;
 	this.p = o.p;
 	
-	function bar(x,y,w,h,c,id) {
-		return '<div id="' + id + '" style="position:fixed;top:' + y + 'px;left:' + x + 'px; width:' + w + 'px; height: ' + h + 'px; background-color:' + c + ';background-image:url(\'img/energy_bg.png\')"></div>';
+	function bar(x,y,w,h,c,id,extra) {
+		return '<div class="bar" id="' + id + '" style="position:fixed;top:' + y + 'px;left:' + x + 'px; width:' + w + 'px; height: ' + h + 'px; background-color:' + c + ';' + extra + '"></div>';
 	}
-	this.barContainer = $(bar(this.x,this.y,this.w,this.h,'#ff0000','barContainer')).appendTo(document.body);
-	this.healthbar = $(bar(this.x,this.y,this.w * this.p ,this.h,'#00ff00','healthbar')).appendTo(document.body);	
+	this.barContainer = $(bar(this.x,this.y,this.w,this.h,'#cc0000','barContainer')).appendTo(document.body);
+	this.healthbar = $(bar(this.x,this.y,this.w * this.p ,this.h,'#999','healthbar', 'background-image:url(\'img/energy_bg.png\')')).appendTo(document.body);	
 }
 
 Healthbar.prototype.updatePercentage = function ( p ) {
