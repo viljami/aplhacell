@@ -23,10 +23,10 @@ function Player( o ) {
 		speed: 1,
 		maxHealth: 5,
 		health: 5,
-		hostHealth: 11,
-		hostHealthMax: 10,
+		hostHealth: 8,
+		hostHealthMax: 8,
 		amountOfWorms: 0,
-		hostTolerance: 4,
+		hostTolerance: 2,
 		recovery: 500 // milliseconds
 	};
 	
@@ -100,7 +100,6 @@ Player.prototype.draw = function ( context ) {
 
 Player.prototype.gameOver = function () {
 	console.log('gameOver');
-	game.state = "dead";
 	this.state = "disabled";
 
 	game.lose();
@@ -109,6 +108,9 @@ Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
 	var percentage = ( this.levels.hostHealthMax - ( n / this.levels.hostTolerance )) / this.levels.hostHealthMax;
 	this.hostHealthbar.updatePercentage( percentage );
+
+	if (percentage <= 0)
+		game.lose();
 }
 Player.prototype.updateLevels = function () {
 	if( this.levels.health <= 0 ) {
