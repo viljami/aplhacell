@@ -27,7 +27,7 @@ Technologies
 
 Team
 ===
-Annika - Graphic Designer & Game Developer
-Touho - Programmer & Gameplay Pro
-Viljami - Programmer & Producer ( & Master of typos )
+* Annika - Graphic Designer & Game Developer
+* Touho - Programmer & Gameplay Pro
+* Viljami - Programmer & Producer ( & Master of typos )
 
