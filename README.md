@@ -12,3 +12,16 @@ Use Chrome
 =====
 
 The game is only tested on CHROME browser!
+
+
+Future ideas
+===
+
+* Power ups
+* Leveling ( being able to kill eggs )
+
+Team
+===
+Annika
+Touho
+Viljami
