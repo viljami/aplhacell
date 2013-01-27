@@ -20,8 +20,14 @@ Future ideas
 * Power ups
 * Leveling ( being able to kill eggs )
 
+Technologies
+===
+Box2d ( Copyright (c) 2006-2007 Erin Catto http://www.gphysics.com )
+jQuery ( http://jquery.com )
+
 Team
 ===
-Annika
-Touho
-Viljami
+Annika - Graphic Designer & Game Developer
+Touho - Programmer & Gameplay Pro
+Viljami - Programmer & Producer ( & Master of typos )
+
