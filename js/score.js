@@ -12,15 +12,15 @@ function ScoreDisplay() {
 		console.log( timeBonus, score.endTime.getTime(), score.startTime.getTime() );
 		if( !this.dialog ) {
 			var fullBonus = score.wormsKilled * 10000 + timeBonus;
-			this.dialog = $('<div id="scoreDialog"><h1>Scores</h1><ul><li> Worms killed: ' + 
-				score.wormsKilled + '</li><li>Time bonus: ' + timeBonus + '</li><li>Total: ' + fullBonus  + ' </li></ul><h2>Press anykey to replay!</h2></div>').appendTo('#canvasContainer');
+			this.dialog = $('<div id="scoreDialog"><h1>Scores</h1><table style="margin: 0px auto;"><tr><td style="width:100px;"> Worms killed: </td><td style="width:100px;">' + 
+				score.wormsKilled + '</td></tr><tr><td>Time bonus: </td><td>' + timeBonus + '</td></tr><tr><td>Total: </td><td>' + fullBonus  + '</td></tr></table><h2>Press anykey to replay!</h2></div>').appendTo('#canvasContainer');
 		}
 		
 		$(this.dialog).keypress( this.hide );
 	}
 
 	this.hide = function () {
-		$( '#canvasContainer' ).remove( this.dialog );
+		$( this.dialog ).remove();
 
 		this.reset();
 		

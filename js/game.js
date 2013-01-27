@@ -254,6 +254,7 @@ Game.prototype.handleControls = function () {
 
 	if (this.controls.keys.reset.isDown) {
 		this.reset = true;
+		this.scoreDialog.hide();
 	}
 
 	if (this.state == "dead")
