@@ -22,20 +22,21 @@ body {
 	top: 0px;
 	left:0px
 }
-
+table { color: #cc4444; }
 #scoreDialog {
-	width: 200px;
+	width: 180px;
 	height: 250px;
 	position: absolute;
-	top: 150px;
-	left: 260px;
+	top: 100px;
+	left: 280px;
 	padding: 20px;
 	text-align:center;
-	color: #66cc00;
+	color: #cc4444;
+	/*
 	background-color: #fff;
 	border-radius: 8px;
 	opacity: 0.7;
-	box-shadow: 10px 10px 10px 1px #000; /* h-shadow v-shadow blur spread color inset */
+	box-shadow: 10px 10px 10px 1px #000; */ /* h-shadow v-shadow blur spread color inset */
 }
 
 .bar {
