@@ -15,13 +15,13 @@ function Player( o ) {
 		jump: 1,
 		attack: 1,
 		speed: 1,
-		maxHealth: 10,
-		health: 10,
+		maxHealth: 5,
+		health: 5,
 		hostHealth: 11,
 		hostHealthMax: 10,
 		amountOfWorms: 0,
 		hostTolerance: 4,
-		recovery: 1000 // milliseconds
+		recovery: 500 // milliseconds
 	};
 	
 	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled', win: "win" };
