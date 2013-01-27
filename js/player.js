@@ -7,10 +7,16 @@ function Player( o ) {
 		o.r = 0.5;
 		o.a = 2 * Math.PI;
 	}
+
+	this.radius = o.r;
+
 	// TODO: Angle
+	this.resetBody(o.x, o.y);
+	/*
 	this.body = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: false }),
 	this.body.name = 'player';
-	
+	*/
+
 	this.levels = {
 		jump: 1,
 		attack: 1,
@@ -43,6 +49,30 @@ function Player( o ) {
 	
 	this.healthbar = new Healthbar({w: 200, h: 30, x: 10, y: 10, p: 1, name: 'player' });
 	this.hostHealthbar = new Healthbar({w: 200, h: 30, x: 10, y: 50, p: 1, name: 'host' });
+}
+
+Player.prototype.resetBody = function(x, y) {
+	var radius = this.radius;
+	if (this.state == "attack") radius *= 1.1;
+
+	var v = new b2Vec2(0, 0);
+	var va = 0;
+	var angle = 0;
+
+	if (this.body) {
+		v = this.body.GetLinearVelocity().Copy();
+		va = this.body.GetAngularVelocity();
+		angle = this.body.GetAngle();
+
+		box2d.world.DestroyBody( this.body );
+	}
+
+	this.body = box2d.create.circle({r: radius, x: x, y: y, static: false });
+	this.body.name = 'player';
+
+	this.body.SetLinearVelocity(v);
+	this.body.SetAngle(angle);
+	this.body.SetAngularVelocity(va);
 }
 
 Player.prototype.imgs = {};
@@ -109,13 +139,16 @@ Player.prototype.attack = function () {
 	if( this.attackReady ) {
 		this.state = this.states.attack;
 		this.attackReady = false;
+		$("#attacksound").get(0).play();
 		setTimeout( this.attackHandler, 1000 );
+
+		this.resetBody(this.body.m_xf.position.x, this.body.m_xf.position.y);
 	}
 }
 
 Player.prototype.attackHandler = function () {
 	this.state = this.states.disabled;
-	
+	this.resetBody(this.body.m_xf.position.x, this.body.m_xf.position.y);
 	setTimeout( this.postAttackHandler, this.levels.recovery );
 }
 

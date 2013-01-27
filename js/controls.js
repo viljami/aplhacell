@@ -6,6 +6,7 @@ function Controls() {
 		right: { keyCode: 39, isDown: false },
 		down: { keyCode: 40, isDown: false },
 		space: { keyCode: 32, isDown: false },
+		reset: { keyCode: 82, isDown: false }, //r
 	};
 
 	this.keyDown = function(e) {
@@ -21,6 +22,9 @@ function Controls() {
 				break;
 			case this.keys.right.keyCode:
 				this.keys.right.isDown = true;
+				break;
+			case this.keys.reset.keyCode:
+				this.keys.reset.isDown = true;
 				break;
 			case this.keys.space.keyCode:
 				this.keys.space.isDown = true;
@@ -45,6 +49,9 @@ function Controls() {
 				break;
 			case this.keys.right.keyCode:
 				this.keys.right.isDown = false;
+				break;
+			case this.keys.reset.keyCode:
+				this.keys.reset.isDown = false;
 				break;
 			case this.keys.space.keyCode:
 				this.keys.space.isDown = false;

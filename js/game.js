@@ -40,11 +40,16 @@ function Game() {
 	this.gameTime = 0;
 	this.worldAngle = -1;
 
+	this.reset = false;
+
 	ParticleSystem.init(this.canvas);
 	this.particleEngine = ParticleSystem;
 
 	$("#aih").get(0).volume = 0.5;
 	$("#squeeze").get(0).volume = 0.8;
+	$("#attacksound").get(0).volume = 0.6;
+
+	$(document.body).css( {'background-image': 'url("img/bg_normal_tile.png")' });
 }
 
 Game.prototype.run = function(deltaTime) {
@@ -71,6 +76,7 @@ Game.prototype.run = function(deltaTime) {
 
 	this.draw(deltaTime);
 	
+	return this.reset; //don't reset
 }
 
 Game.prototype.calculateWorldAngle = function(deltaTime) {
@@ -245,6 +251,11 @@ Game.prototype.getUnityGravityVector = function (pos) {
 }
 
 Game.prototype.handleControls = function () {
+
+	if (this.controls.keys.reset.isDown) {
+		this.reset = true;
+	}
+
 	if (this.state == "dead")
 		return;
 

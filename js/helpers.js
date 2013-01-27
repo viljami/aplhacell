@@ -15,7 +15,12 @@ function mainLoop() {
 	delta_time = current_time - old_time;
 	delta_time = Math.min(0.1, delta_time);
 
-	game.run(delta_time);
+	var resetGame = game.run(delta_time);
+	if (resetGame) {
+		setup();
+		return;
+	}
+
 	_requestAnimFrame(mainLoop);
 }
 
