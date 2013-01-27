@@ -47,8 +47,8 @@ function Player( o ) {
 	this.recoverFromDamage = this.recoverFromDamage.bind( this ); 
 	this.postRecoverFromDamage = this.postRecoverFromDamage.bind( this  );
 	
-	this.healthbar = new Healthbar();
-	this.hostHealthbar = new Healthbar({w: 200, h: 30, x: 10, y: 50, p: 1});
+	this.healthbar = new Healthbar({w: 200, h: 30, x: 10, y: 10, p: 1, name: 'player' });
+	this.hostHealthbar = new Healthbar({w: 200, h: 30, x: 10, y: 50, p: 1, name: 'host' });
 }
 
 Player.prototype.resetBody = function(x, y) {
