@@ -111,6 +111,11 @@ Game.prototype.update = function(deltaTime) {
 		this.player.update(deltaTime);
 	}
 
+	if (Math.random() < deltaTime) {
+		for (var i = 0; i < (this.worms.length-4)*4; i++)
+			this.particleEngine.addParticle({color:"unhealthy"});
+	}
+
 	if (this.state != "running")
 		return;
 	
