@@ -24,17 +24,17 @@ body {
 }
 
 #scoreDialog {
-	width: 400px;
-	height: 300px;
+	width: 200px;
+	height: 250px;
 	position: absolute;
-	top: 30px;
-	left: 100px;
+	top: 250px;
+	left: 260px;
 	padding: 20px;
 	text-align:center;
 	color: #66cc00;
 	background-color: #fff;
 	border-radius: 8px;
-	opacity: 0.8;
+	opacity: 0.6;
 	box-shadow: 10px 10px 10px 1px #000; /* h-shadow v-shadow blur spread color inset */
 }
 
@@ -141,18 +141,10 @@ body {
 .southwest {
 	bottom: -30px;
 	left: -280px;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 3s;
-    -webkit-animation-name: beatleft;
 }
 .southeast {
 	bottom: -75px;
 	right: -280px;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-delay: 2s;
-	-webkit-animation-duration: 3s;
-    -webkit-animation-name: beatright;
 }
 
 .southsouthwest {
