@@ -13,7 +13,7 @@ function ScoreDisplay() {
 		if( !this.dialog ) {
 			var fullBonus = score.wormsKilled * 10000 + timeBonus;
 			this.dialog = $('<div id="scoreDialog"><h1>Scores</h1><table style="margin: 0px auto;"><tr><td style="width:100px;"> Worms killed: </td><td style="width:100px;">' + 
-				score.wormsKilled + '</td></tr><tr><td>Time bonus: </td><td>' + timeBonus + '</td></tr><tr><td>Total: </td><td>' + fullBonus  + '</td></tr></table><h2>Press R to replay!</h2></div>').appendTo('#canvasContainer');
+				score.wormsKilled + '</td></tr><tr><td>Time bonus: </td><td>' + timeBonus + '</td></tr><tr><td>Total: </td><td>' + fullBonus  + '</td></tr><tr></tr></table><br /><br /><br /><p>Press R to replay!</p></div>').appendTo('#canvasContainer');
 		}
 		
 		$(this.dialog).keypress( this.hide );

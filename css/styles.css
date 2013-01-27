@@ -1,6 +1,7 @@
 html, body { 
 	margin: 0; 
 	padding: 0;
+	font-family: "Arial";
 }
 
 body {
@@ -34,13 +35,14 @@ body {
 	background-color: #fff;
 	border-radius: 8px;
 	opacity: 0.8;
+	box-shadow: 10px 10px 10px 1px #000; /* h-shadow v-shadow blur spread color inset */
 }
 
 .bar {
 	border-radius: 8px;
 }
 .player {	
-	background-image: url('../img/alphacell.png');
+	background-image: url('../img/alphacell-disabled.png');
 	background-repeat: none;
 }
 
@@ -75,6 +77,53 @@ body {
     margin-right: 0px;
   }
 }
+@-webkit-keyframes beatbottom {
+  from {
+      margin-top: 10px;
+  }
+ 
+  to {
+    margin-top: 0px;
+  }
+}
+
+.beatbottom {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 2.5s;
+    -webkit-animation-name: beatbottom;
+}
+.beatbottomFast {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 0.5s;
+    -webkit-animation-name: beatbottom;
+}
+.beatleft {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 2.5s;
+    -webkit-animation-name: beatleft;
+}
+.beatleftFast {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 0.5s;
+    -webkit-animation-name: beatleft;
+}
+
+.beatright  {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 2.5s;
+    -webkit-animation-name: beatright;
+}
+.beatrightFast  {
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 0.5s;
+    -webkit-animation-name: beatright;
+}
 
 .west {
 	top: -80px;
@@ -105,6 +154,7 @@ body {
 	-webkit-animation-duration: 3s;
     -webkit-animation-name: beatright;
 }
+
 .southsouthwest {
 	bottom: -230px;
 	left: -80px;
