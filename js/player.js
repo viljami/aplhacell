@@ -17,8 +17,8 @@ function Player( o ) {
 		speed: 1,
 		maxHealth: 5,
 		health: 5,
-		hostHealth: 11,
-		hostHealthMax: 10,
+		hostHealth: 7,
+		hostHealthMax: 6,
 		amountOfWorms: 0,
 		hostTolerance: 4,
 		recovery: 500 // milliseconds
