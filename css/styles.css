@@ -12,6 +12,7 @@ body {
 
 #resources {
 	display: none;
+	overflow: hidden;
 }
 
 #canvasContainer { 
@@ -124,30 +125,37 @@ table { color: #cc4444; }
 .west {
 	top: -80px;
 	left: -320px;
+	overflow: hidden;
 }
 .east {
 	top: -80px;
 	right: -320px;
 	height: 400px;
+	overflow: hidden;
 }
 .south {
 	bottom: -270px;
 	left: 230px;
+	overflow: hidden;
 }
 .southwest {
 	bottom: -30px;
 	left: -280px;
+	overflow: hidden;
 }
 .southeast {
 	bottom: -75px;
 	right: -280px;
+	overflow: hidden;
 }
 
 .southsouthwest {
 	bottom: -230px;
 	left: -80px;
+	overflow: hidden;
 }
 .southsoutheast {
 	bottom: -230px;
 	right: -80px;
+	overflow: hidden;
 }
