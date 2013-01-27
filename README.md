@@ -8,6 +8,11 @@ The game is about a white blood cell defending its host agains worms. It is the 
 Many thanks to Finnish Game Jam. This is the best event of the year!
 
 
+Try the game out! 
+=
+http://viljamipeltola.com/FinnishGameJam/2013/AlphaCell/
+
+
 Use Chrome
 =====
 
