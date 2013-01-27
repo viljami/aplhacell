@@ -41,6 +41,9 @@ function Game() {
 
 	ParticleSystem.init(this.canvas);
 	this.particleEngine = ParticleSystem;
+
+	$("#aih").get(0).volume = 0.5;
+	$("#squeeze").get(0).volume = 0.8;
 }
 
 Game.prototype.run = function(deltaTime) {
