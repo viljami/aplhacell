@@ -1,6 +1,6 @@
 
 function Game() {
-	new FrontLayer();
+	//new FrontLayer();
 	
 	game = this;	
 	this.width = $('canvas').css('width');

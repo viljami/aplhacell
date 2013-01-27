@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Alpha Cell</title>
+	<link rel="stylesheet" href="css/styles.css"  type="text/css" />
 
 	<script type="text/javascript" src="lib/jquery.min.js"></script>
 	<script type='text/javascript' src='lib/box2d.js'></script>
@@ -23,27 +24,22 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/setup.js"></script>
 	
-	<style type="text/css">
-		html,body { margin: 0; padding: 0;}
-		body {
-			background: #772222;
-			background-image: url('img/bg_normal_tile.png');
-		}
-		#resources {
-			display: none;
-		}
-		canvas { 
-			margin: 0 auto; 
-			display: block; 
-			
-		}
-	</style>
 </head>
 <body>
-	<canvas id="gamecanvas" width="800" height="600">
-		Canvas not supported.
-	</canvas>
-
+	<div id="canvasContainer" >
+		<canvas id="gamecanvas" width="800" height="600">
+			Canvas not supported.
+		</canvas>
+		
+		<div class="meat west"></div>
+		<div class="meat east"></div>
+		<div class="meat southsouthwest"></div>
+		<div class="meat southsoutheast"></div>
+		<div class="meat south"></div>
+		<div class="meat southwest"></div>
+		<div class="meat southeast"></div>
+	</div>
+	
 	<div id="resources">
 		<img id="wormBody" src="img/worm-body.png" />
 		<img id="wormHead" src="img/worm-head.png" />

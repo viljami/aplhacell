@@ -4,38 +4,40 @@ function FrontLayer() {
 	}
 	
 	if( window.innerWidth > 800 ) {
-		this.imgs.midBody = this.imgs.body.clone().appendTo(document.body).css({
-			position: 'fixed',
-			bottom: '-30%',
-			right:'26.5%',
-			width: '50%',
-			height: '50%',
+		this.imgs.midBody = this.imgs.body.clone().appendTo('#canvasContainer').css({
+			position: 'absolute',
+			bottom: '-100px;',
+			right:'0px;',
 			zIndex: '1'
 		});
 		
-		this.imgs.leftTopBody = this.imgs.body.clone().appendTo(document.body).css({
-			position: 'fixed',
-			top: '-15%',
-			left:'-26%',
-			width: '50%',
+		this.imgs.leftTopBody = this.imgs.body.clone().appendTo('#canvasContainer').css({
+			position: 'absolute',
+			top: '0px;',
+			left:'0px;',
+			zIndex: '1'
+		});
+		
+		this.imgs.rightTopBody = this.imgs.body.clone().appendTo('#canvasContainer').css({
+			position: 'absolute',
+			top: '100px;',
+			right:'100px;',
 			zIndex: '1'
 		});
 	}
-	this.imgs.leftBody = this.imgs.body.clone().appendTo(document.body).css({
-		position: 'fixed',
-		bottom: '-90px',
-		left:'-90px',
+	this.imgs.leftBody = this.imgs.body.clone().appendTo('#canvasContainer').css({
+		position: 'absolute',
+		bottom: '0px;',
+		left: '0px;',
 		zIndex: '1'
 	});
 	
-	this.imgs.rightBody = this.imgs.body.clone().appendTo(document.body).css({
-		position: 'fixed',
-		bottom: '-80px',
-		right:'-80px',
+	this.imgs.rightBody = this.imgs.body.clone().appendTo('#canvasContainer').css({
+		position: 'absolute',
+		bottom: '0px;',
+		right:'0px;',
 		zIndex: '1'
 	});
-	
-	
 	
 	this.handlePulse = this.handlePulse.bind( this );
 	

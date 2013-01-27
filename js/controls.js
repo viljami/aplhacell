@@ -24,6 +24,7 @@ function Controls() {
 				break;
 			case this.keys.space.keyCode:
 				this.keys.space.isDown = true;
+				e.preventDefault();
 				break;
 		}
 		//e.preventDefault();
@@ -47,6 +48,7 @@ function Controls() {
 				break;
 			case this.keys.space.keyCode:
 				this.keys.space.isDown = false;
+				e.preventDefault();
 				break;
 		}
 		//e.preventDefault();
