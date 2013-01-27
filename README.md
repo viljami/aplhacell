@@ -1,7 +1,7 @@
 Aplha Cell
 =========
 
-Yes, you read right. It's been long weekend. This game is developed in a game development event, Finnish Game Jam 2013.
+Yes, you read right. The great Aplha Cell (, not Alpha Cell repo like somebody would have expected ). It's been long weekend. This game is developed in a game development event, Finnish Game Jam 2013.
 
 The game is about a white blood cell defending its host agains worms. It is the Schwarzenegger of white blood cells. It can do it... whith your help.
 
