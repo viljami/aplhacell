@@ -57,9 +57,9 @@ Game.prototype.run = function(deltaTime) {
 
 	this.handleControls(); 
 	
-	if ( this.state == "running" ) {
-		this.update( deltaTime );
-	}
+	
+	this.update( deltaTime );
+	
 	
 	//this.context.fillStyle = "red";
 	box2d.world.Step( deltaTime, 3);
@@ -108,6 +108,9 @@ Game.prototype.update = function(deltaTime) {
 		this.player.setAmountOfWorms( this.worms.length );
 		this.player.update(deltaTime);
 	}
+
+	if (this.state != "running")
+		return;
 	
 	for (var i = this.worms.length - 1; i >= 0; i--) {
 		this.worms[i].update( deltaTime, this.player.isAttacking() );
@@ -299,6 +302,9 @@ Game.prototype.handleControls = function () {
 }
 
 Game.prototype.lose = function() {
-	$(document.body).css( {'background-image': 'url("img/bg_dead_tile.png")' });
-	$("#deadsong").get(0).play();
+	if (this.state != "dead") {
+		this.state = "dead";
+		$(document.body).css( {'background-image': 'url("img/bg_dead_tile.png")' });
+		$("#deadsong").get(0).play();
+	}
 }

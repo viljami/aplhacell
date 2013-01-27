@@ -75,7 +75,7 @@ function Worm( o ) {
 	if (game && game.gameTime)
 		this.eggInterval += game.gameTime;
 
-	this.eggInterval = Math.min(40, this.eggInterval);
+	this.eggInterval = Math.min(20, this.eggInterval);
 
 	this.eggTimeLeft = this.eggInterval;
 }
@@ -129,6 +129,9 @@ Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
 
 		this.eggTimeLeft = this.eggInterval;
 		this.eggInterval += 10;
+
+		if (this.eggInterval > 20)
+			this.eggInterval = 20;
 
 
 		var pos = this.head.GetWorldCenter().Copy();
