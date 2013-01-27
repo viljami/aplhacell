@@ -302,7 +302,7 @@ Game.prototype.lose = function() {
 		$(document.body).css( {'background-image': 'url("img/bg_dead_tile.png")' });
 		$("#deadsong").get(0).play();
 		
-		score.endTime = score.startTime; // no bonus from dying
+		score.endTime = new Date(); // no bonus from dying
 		this.scoreDialog.show();
 	}
 }
