@@ -25,6 +25,15 @@ body {
 .bar {
 	border-radius: 8px;
 }
+.player {	
+	background-image: url('../img/alphacell.png');
+	background-repeat: none;
+}
+
+.host {	
+	background-image: url('../img/front-tile.png');
+	background-repeat: none;
+}
 
 .meat {
 	position: absolute;
