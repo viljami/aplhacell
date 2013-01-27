@@ -28,6 +28,7 @@
 		body {
 			background: #772222;
 			background-image: url('img/bg_normal_tile.png');
+			overflow: hidden;
 		}
 		#resources {
 			display: none;
@@ -36,7 +37,44 @@
 			width: 800px;
 			margin: 0 auto; 
 			display: block;
-			position: 'relative'; 
+			position: relative; 
+			top: 0px;
+			left:0px
+		}
+		.meat {
+			position: absolute;
+			background-image: url('img/front-tile.png');
+			width: 400px;
+			height: 400px;
+		}
+		.west {
+			top: -80px;
+			left: -320px;
+		}
+		.east {
+			top: -80px;
+			right: -320px;
+			height: 400px;
+		}
+		.south {
+			bottom: -270px;
+			left: 230px;
+		}
+		.southwest {
+			bottom: -30px;
+			left: -280px;
+		}
+		.southeast {
+			bottom: -75px;
+			right: -280px;
+		}
+		.southsouthwest {
+			bottom: -230px;
+			left: -80px;
+		}
+		.southsoutheast {
+			bottom: -230px;
+			right: -80px;
 		}
 	</style>
 </head>
@@ -45,6 +83,14 @@
 		<canvas id="gamecanvas" width="800" height="600">
 			Canvas not supported.
 		</canvas>
+		
+		<div class="meat west"></div>
+		<div class="meat east"></div>
+		<div class="meat southsouthwest"></div>
+		<div class="meat southsoutheast"></div>
+		<div class="meat south"></div>
+		<div class="meat southwest"></div>
+		<div class="meat southeast"></div>
 	</div>
 	
 	<div id="resources">
