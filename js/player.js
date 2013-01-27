@@ -109,11 +109,29 @@ Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
 	var percentage = ( this.levels.hostHealthMax - ( n / this.levels.hostTolerance )) / this.levels.hostHealthMax;
 	this.hostHealthbar.updatePercentage( percentage );
+
+	if ( percentage > 0.7 && percentage < 0.9 ) {
+		$('.west').addClass('beatleft');
+		$('.east').addClass('beatright');
+	} else if ( percentage < 0.6 ) {
+		$('.southsouthwest').addClass('beatleft');
+		$('.southsoutheast').addClass('beatleft');
+		$('.west').removeClass('beatleft');
+		$('.west').addClass('beatleftFast');
+		$('.east').removeClass('beatright');
+		$('.east').addClass('beatrightFast');
+	} else if ( percentage < 0.3 ) {
+		$('.southwest').removeClass('beatleft');
+		$('.southeast').removeClass('beatleft');
+		$('.southwest').addClass('beatleftFast');
+		$('.southeast').addClass('beatleftFast');
+	}
 }
 Player.prototype.updateLevels = function () {
 	if( this.levels.health <= 0 ) {
 		this.gameOver();
 	} 
+	
 	this.healthbar.updatePercentage( this.levels.health / this.levels.maxHealth );
 	
 	if ( score.wormsKilled > 2 ) {
