@@ -28,6 +28,26 @@ body {
 	width: 400px;
 	height: 400px;
 }
+ 
+@-webkit-keyframes beatleft {
+  from {
+      margin-left: 10px;
+  }
+ 
+  to {
+    margin-left: 0px;
+  }
+}
+
+@-webkit-keyframes beatright {
+  from {
+      margin-right: 10px;
+  }
+ 
+  to {
+    margin-right: 0px;
+  }
+}
 
 .west {
 	top: -80px;
@@ -45,10 +65,18 @@ body {
 .southwest {
 	bottom: -30px;
 	left: -280px;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 3s;
+    -webkit-animation-name: beatleft;
 }
 .southeast {
 	bottom: -75px;
 	right: -280px;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-delay: 2s;
+	-webkit-animation-duration: 3s;
+    -webkit-animation-name: beatright;
 }
 .southsouthwest {
 	bottom: -230px;
