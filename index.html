@@ -32,18 +32,21 @@
 		#resources {
 			display: none;
 		}
-		canvas { 
+		#canvasContainer { 
+			width: 800px;
 			margin: 0 auto; 
-			display: block; 
-			
+			display: block;
+			position: 'relative'; 
 		}
 	</style>
 </head>
 <body>
-	<canvas id="gamecanvas" width="800" height="600">
-		Canvas not supported.
-	</canvas>
-
+	<div id="canvasContainer" >
+		<canvas id="gamecanvas" width="800" height="600">
+			Canvas not supported.
+		</canvas>
+	</div>
+	
 	<div id="resources">
 		<img id="wormBody" src="img/worm-body.png" />
 		<img id="wormHead" src="img/worm-head.png" />
