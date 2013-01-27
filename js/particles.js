@@ -28,6 +28,10 @@ var Particle = function(color)
         	this.vx += Math.cos(this.life*7)*0.04;
         	this.vy += Math.cos(this.life*11)*0.04;
         }
+        else if (this.isUnhealthy) {
+        	this.vx += Math.cos(this.life*13)*0.03;
+        	this.vy += Math.cos(this.life*15)*0.03;
+        }
         
         this.x += this.vx;
         this.y += this.vy;
@@ -63,7 +67,7 @@ var ParticleSystem = new function()
     var width;
     var height;
     
-    var particles = [];
+    particles = [];
     var gravity = 0;//0.15;
     var friction = 1;
 
@@ -146,6 +150,25 @@ var ParticleSystem = new function()
     		}
     		else if (o.color == "worm")
     			particle.color = "rgb(0, "+Math.floor(Math.random()*200)+", 120)";
+    		else if (o.color == "unhealthy") {
+    			
+    			particle.x = game.box2dCenter.x + (Math.random()*2 - 1) * game.level.r;
+    			particle.y = game.box2dCenter.y + (Math.random()*2 - 1) * game.level.r;
+
+    			console.log("coords", particle.x, particle.y);
+
+    			particle.x *= box2d.scale;
+    			particle.y *= box2d.scale;
+
+    			particle.color = "#227755";
+    			particle.isUnhealthy = true;
+
+    			particle.alpha = 0.6;
+
+    			particle.scaleX = 3;
+    			particle.scaleY = 3;
+    			particle.life = 6;
+    		}
     		else if (o.color == "bubble") {
     			particle.image = $( '#bubble' ).get( 0 );
     			particle.life = 4;
@@ -195,7 +218,7 @@ var ParticleSystem = new function()
                     continue;
                 }
 
-                if (particle.image) {
+                if (particle.image || particle.isUnhealthy) {
                 	//bubble
                 	particle.scaleX += deltaTime*0.02;
                 	particle.scaleY += deltaTime*0.02;
