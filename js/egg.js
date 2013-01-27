@@ -26,7 +26,7 @@ function Egg(o) {
 
 	this.image = $('#egg').get(0);
 
-	this.life = 10;
+	this.life = 7;
 	this.stuck = false;
 
 	this.removeMe = false;
@@ -61,12 +61,16 @@ Egg.prototype.update = function(deltaTime) {
 			this.remove();
 			this.body = box2d.create.circle({r: 0.3, x: x, y: y, static: true });
 			this.body.name = "egg";
-			this.life = 5;
+			this.life = 3;
 		}
 	}
 
 	if (this.life < deltaTime && this.stuck) {
 		this.removeMe = true;
+		var pos = this.body.m_xf.position.Copy();
+		pos.Subtract(game.player.body.m_xf.position);
+		if (pos.Length() < 5)
+			$("#worm").get(0).play();
 	}
 }
 

@@ -24,7 +24,7 @@ function Player( o ) {
 		recovery: 1000 // milliseconds
 	};
 	
-	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled' };
+	this.states = { normal: 'normal', attack: 'attack', disabled: 'disabled', win: "win" };
 	this.state = this.states.normal;
 
 	this.imgs = {
@@ -32,7 +32,8 @@ function Player( o ) {
 		"normal2": $('#cell2').get(0),
 		"normal3": $('#cell3').get(0),
 		"attack": $('#cellspikes').get(0),
-		"disabled": $('#celldisabled').get(0)
+		"disabled": $('#celldisabled').get(0),
+		"win": $('#cellwin').get(0)
 	}
 	
 	this.attackHandler = this.attackHandler.bind( this ); 
@@ -47,6 +48,9 @@ function Player( o ) {
 Player.prototype.imgs = {};
 
 Player.prototype.draw = function ( context ) {
+	if (game.state == "win")
+		this.state = this.states.win;
+
 	context.save();
 	context.translate( this.body.GetPosition().x * box2d.scale, this.body.GetPosition().y * box2d.scale ); 
 	context.rotate( this.body.GetAngle() );
@@ -66,6 +70,10 @@ Player.prototype.draw = function ( context ) {
 
 Player.prototype.gameOver = function () {
 	console.log('gameOver');
+	game.state = "dead";
+	this.state = "disabled";
+
+	game.lose();
 }
 Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
@@ -117,7 +125,8 @@ Player.prototype.postAttackHandler = function () {
 }
 
 Player.prototype.update = function (deltaTime) {
-	if( this.body.beginContact != null ) {
+
+	if( this.body.beginContact != null && (this.body.beginContact.GetFixtureA().GetBody() == this.body || this.body == this.body.beginContact.GetFixtureB().GetBody())) {
 		var name1 = this.body.beginContact.GetFixtureA().GetBody().name;
 		var name2 = this.body.beginContact.GetFixtureB().GetBody().name;
 		if ((name1 && name1 == "ground" || name2 && name2 == "ground") && this.body.m_linearVelocity.Length() > 3) {
@@ -133,6 +142,8 @@ Player.prototype.update = function (deltaTime) {
 			if( (this.body.beginContact.GetFixtureA().GetBody().name && this.body.beginContact.GetFixtureA().GetBody().name == 'worm' ) ||
 				(this.body.beginContact.GetFixtureB().GetBody().name && this.body.beginContact.GetFixtureB().GetBody().name == 'worm' )) {
 					if ( !this.recoveryMode ) {
+						console.log("aih", this.body.beginContact);
+						$("#aih").get(0).play();
 						this.recoveryMode = true;
 						this.bodyImage = $(document.body).css( 'background-image' );
 						$(document.body).css( {'background-image': 'url("img/bg_sick_tile.png")' });
@@ -156,7 +167,7 @@ Player.prototype.update = function (deltaTime) {
 }
 Player.prototype.recoveryMode = false;
 Player.prototype.recoverFromDamage = function () {
-	if( !this.recoveryMode ) {
+	if( !this.recoveryMode || game.state == "dead" ) {
 		return;
 	}
 	$(document.body).css( {'background-image': this.bodyImage });

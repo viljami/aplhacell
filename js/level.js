@@ -7,7 +7,7 @@ function Level(game) {
 	for (var a = 0; a < Math.PI*2; a += Math.PI/40) {
 		var x = game.box2dCenter.x + Math.sin(a) * this.r;
 		var y = game.box2dCenter.y + Math.cos(a) * this.r;
-		var r = 1 + Math.random();
+		var r = 0.4 + Math.random()*2;
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
 		body.ground = true;
@@ -28,13 +28,19 @@ function Level(game) {
 	}
 
 	//Mid
-	for (var a = 0; a < 5; a ++) {
+	for (var a = 0; a < 9; a ++) {
 		var angle = Math.random()*Math.PI*2;
 		var depth = 2 + (this.r-2) * Math.random();
 
 		var x = game.box2dCenter.x + Math.sin(angle)*depth;
 		var y = game.box2dCenter.y + Math.cos(angle)*depth;
-		var r = 0.7 + Math.random();
+		var r = 0.6 + Math.random();
+
+		if (depth + r > 6.7 || depth - r < 3) {
+			a--;
+			continue;
+		}
+
 		var body = box2d.create.circle({r:r, x:x, y:y, static:true});
 		body.r = r;
 		body.ground = true;

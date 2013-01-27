@@ -30,7 +30,7 @@ function Worm( o ) {
 	
 	var bottom = box2d.create.circle({r: o.r, x: position1.x, y: position1.y, static: true }),
 		middle = box2d.create.circle({r: o.r * 0.8, x: position2.x, y: position2.y, density: 0.8, static: Math.random() < 0.5 }),
-		head = box2d.create.circle({r: o.r * 0.6, x: position3.x, y: position3.y, density: 0. }),
+		head = box2d.create.circle({r: o.r * 0.8, x: position3.x, y: position3.y, density: 0. }),
 /*	
 	var bottom = box2d.create.circle({r: o.r, x: o.x, y: o.y, static: true }),
 	    middle = box2d.create.circle({r: o.r * 0.8, x: o.x, y: o.y - o.r, density: 0.8 }),
@@ -70,7 +70,13 @@ function Worm( o ) {
 		bottom: $('#wormBody').get(0)
 	}
 
-	this.eggInterval = 5 + 30 * Math.random();
+	this.eggInterval = 6 * Math.random();
+
+	if (game && game.gameTime)
+		this.eggInterval += game.gameTime;
+
+	this.eggInterval = Math.min(40, this.eggInterval);
+
 	this.eggTimeLeft = this.eggInterval;
 }
 
@@ -79,7 +85,7 @@ Worm.prototype.imgs = {};
 Worm.prototype.draw = function ( context ) {
 	// Draw Head
 	context.save();
-	context.translate(this.head.GetPosition().x * box2d.scale, this.head.GetPosition().y * box2d.scale ); 
+	context.translate(this.head.GetPosition().x * box2d.scale, this.head.GetPosition().y * box2d.scale );
 	context.rotate(this.head.GetAngle() + 1.5 + Math.sin(game.gameTime*0.3));
 	var s2 = 0.5;
 	var scale = s2;
@@ -87,7 +93,7 @@ Worm.prototype.draw = function ( context ) {
 	context.drawImage(this.imgs.head,-37,-37);
 	//overlay
 	if (this.eggTimeLeft < 3 && game.gameTime % 0.5 > 0.2) {
-        context.fillStyle = "rgba(255, 0, 0, 0.4)";
+        context.fillStyle = "rgba(255, 0, 0, 0.2)";
         context.beginPath();
         context.arc(0, 0, 37, 0, (Math.PI * 2), true);
         context.closePath();
@@ -120,12 +126,19 @@ Worm.prototype.update = function ( deltaTime, isPlayerAttacking ) {
 	this.eggTimeLeft -= deltaTime;
 
 	if (this.eggTimeLeft <= 0) {
+
 		this.eggTimeLeft = this.eggInterval;
+		this.eggInterval += 10;
 
 
-		var pos = this.head.GetWorldCenter();
+		var pos = this.head.GetWorldCenter().Copy();
+
 		//launch egg
 		game.eggs.push(new Egg({x:pos.x, y:pos.y, r:0.3}));
+
+		pos.Subtract(game.player.body.m_xf.position);
+		if (pos.Length() < 5)
+			$("#egglaunch").get(0).play();
 	}
 
 	if( this.head.beginContact != null ) {
