@@ -105,6 +105,7 @@ Player.prototype.gameOver = function () {
 
 	game.lose();
 }
+
 Player.prototype.setAmountOfWorms = function( n ) {
 	this.levels.amountOfWorms = n;
 	var percentage = ( this.levels.hostHealthMax - ( n / this.levels.hostTolerance )) / this.levels.hostHealthMax;
@@ -172,6 +173,7 @@ Player.prototype.updateLevels = function () {
 	
 	this.healthbar.updatePercentage( this.levels.health / this.levels.maxHealth );
 	
+	// TODO: Levels
 	if ( score.wormsKilled > 2 ) {
 		// attack level up
 	} else if ( score.wormsKilled > 7 ) {
