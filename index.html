@@ -60,10 +60,50 @@
 		<img id="startpicture" src="img/menuscreen_bg.png" />
 		<img id="gameover" src="img/gameover.png" />
 		<img id="win" src="img/game_won.png" />
-		
-
-	
 	</div>
+	<script type="text/javascript">
+		function closeInfo() {
+			$('#info').html('<h3>Tested only on <a href="https://www.google.com/intl/en/chrome/browser/">Chrome browser</a>!</h3>').css({ height: '45px' });
+		}
+	</script>
+	<div id="info">
+		<div id="close"><a href="#" id="closeButton" onClick="closeInfo();">X</a></div>
+		<h3><a href="http://finnishgamejam2013.com/">Finnish Game Jam 2013</a></h3>
+		<p>The event is part of <a href="http://globalgamejam.org/">Global Game Jam</a>. Team and topic is formed onsite. Time window is 48 hours. </p>
+		<ul>
+			<li>Annika - Graphic Designer & Game Designer</li>
+			<li>Marko - Programmer & Game play pro</li>
+			<li><a href="http://viljamipeltola.com/">Viljami</a> - Programmer & Game Designer</li>
+		</ul>
+		<h3>Tested only on <a href="https://www.google.com/intl/en/chrome/browser/">Chrome browser</a>!</h3>
+	</div>
+	<style type="text/css">
+		#info {
+			position: fixed;
+			bottom: -10px;
+			right: -2px;
+			width: 300px;
+			height: 150px;
+			border-radius: 8px;
+			box-shadow: -5px -5px 25px #000;
+			background-color: #eee;
+			color: #999;
+			padding-left: 15px;
+			padding-right: 15px;
+			font-size: 10px;
+		}
+		#close { position: absolute; top: 5px; right: 10px;}
+		#info ul {
+			list-style: none;
+		}
+		#info p {
+			margin: 0px;
+		}
+		#info a {
+			
+			color: #999;
+		}
+	</style>
 	
 	<audio id="audio" autoplay="true" loop="true">
 		<source src="audio/heartbeat_edit.mp3" type="audio/mpeg">
